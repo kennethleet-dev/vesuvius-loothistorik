@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="da"><head>
+<meta charset="UTF-8">
+<title>Vesuvius — Loot Master</title>
+<script>const whTooltips={colorLinks:true,iconizeLinks:true,renameLinks:true};</script>
+<script src="https://wow.zamimg.com/widgets/power.js"></script><link type="text/css" href="https://wow.zamimg.com/css/universal.css?19" rel="stylesheet">
+<style>
+:root{--bg:#17171d;--bg-mid:#1e1e26;--panel:#272733;--surface:#2e2e3a;--border:#3e3e52;--text:#e0e0e0;--gold:#f2a900;--danger:#e05050;--success:#4caf50;--link:#00bfff}
+*{box-sizing:border-box}
+body{font-family:'Segoe UI',sans-serif;background:var(--bg);color:var(--text);margin:0;font-size:14px}
+.container{width:100%;padding:14px 18px}
+h1{color:var(--gold);text-transform:uppercase;margin:0 0 15px 0;text-align:center;font-size:24px}
+h2{color:#fff;margin:0;font-size:16px}
+h3{color:var(--gold);margin:0 0 12px 0;font-size:15px;text-transform:uppercase;letter-spacing:1px}
+.panel{background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--gold);padding:14px 18px;border-radius:6px;margin-bottom:16px;box-shadow:0 3px 8px rgba(0,0,0,.55)}
+.header-flex{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.tabs{display:flex;gap:8px;margin-bottom:15px;justify-content:center;flex-wrap:wrap}
+.tab-btn{background:var(--surface);color:#ccc;border:1px solid #555;padding:10px 22px;font-size:14px;font-weight:bold;cursor:pointer;border-radius:4px;border-top:3px solid transparent}
+.tab-btn:hover{background:#3a3a48;color:#fff}
+.tab-btn.active{background:var(--gold);color:#000;border-color:var(--gold);border-top:3px solid rgba(255,255,255,0.45)}
+.tabs-secondary{gap:4px;margin-bottom:12px}
+.tabs-secondary .tab-btn{padding:7px 14px;font-size:12px}
+.btn-small{background:#333;color:#fff;border:1px solid #555;border-radius:3px;padding:4px 12px;font-size:12px;cursor:pointer;font-weight:bold;margin-left:4px}
+.btn-small:hover{background:var(--gold);color:#000;border-color:var(--gold)}
+.btn-danger{background:#5a1a1a;color:#ff8888;border-color:#a04040}
+.btn-danger:hover{background:var(--danger);color:#fff;border-color:var(--danger)}
+.btn-add{background:#1a3a1a;color:#88cc88;border-color:#408840}
+.btn-add:hover{background:var(--success);color:#000;border-color:var(--success)}
+.btn-action{color:#fff;border:none;padding:10px 20px;font-size:14px;font-weight:bold;border-radius:4px;cursor:pointer;margin:3px}
+.btn-master{background:#9C27B0}.btn-master:hover{background:#7B1FA2}
+.btn-public{background:#2196F3}.btn-public:hover{background:#0b7dda}
+.w-color{color:#C69B6D!important;font-weight:bold}
+.p-color{color:#F58CBA!important;font-weight:bold}
+.h-color{color:#AAD372!important;font-weight:bold}
+.r-color{color:#FFF569!important;font-weight:bold}
+.pr-color{color:#FFFFFF!important;font-weight:bold}
+.s-color{color:#0070DE!important;font-weight:bold}
+.m-color{color:#69CCF0!important;font-weight:bold}
+.wl-color{color:#9482C9!important;font-weight:bold}
+.d-color{color:#FF7D0A!important;font-weight:bold}
+.u-color{color:#aaa!important;font-weight:bold}
+.section-toggle{display:flex;align-items:center;gap:6px;padding:9px 16px;cursor:pointer;font-size:14px;font-weight:bold;color:#ccc;background:var(--bg-mid);border:1px solid var(--border);border-radius:6px}
+.section-toggle:hover{color:var(--gold)}
+.section-toggle .sec-arrow{transition:transform .2s;display:inline-block;font-size:11px}
+.section-toggle.open .sec-arrow{transform:rotate(90deg)}
+.section-body{background:var(--bg-mid);border:1px solid var(--border);border-top:none;border-radius:0 0 6px 6px;max-height:0;overflow:hidden;transition:max-height .3s}
+.section-body.open{max-height:800px;overflow-y:auto}
+.section-body-inner{padding:12px 16px}
+.section-wrap{margin-bottom:12px}
+textarea{width:100%;background:#1a1a20;color:#fff;border:1px solid #4a4a5e;padding:8px;border-radius:3px;font-family:monospace;font-size:13px;margin-bottom:5px}
+textarea:focus,select:focus,input:focus{border-color:var(--gold);outline:none}
+select,input[type=text]{background:#12121a;color:#fff;border:1px solid #4a4a5e;padding:4px 8px;height:30px;border-radius:3px;font-weight:bold;font-size:14px}
+table{width:100%;border-collapse:collapse;margin-bottom:5px}
+th{background:#12121a;padding:8px 10px;border:1px solid var(--border);text-align:left;border-bottom:2px solid var(--gold);font-size:12px;color:#bbb}
+th.sortable{cursor:pointer}
+th.sortable:hover{background:#1a1a25;color:var(--gold)}
+td{border:1px solid var(--border);padding:7px 10px;vertical-align:middle}
+tr:nth-child(even) td{background:rgba(255,255,255,.04)}
+tr:hover td{background:rgba(242,169,0,.07)}
+.filters{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:12px;padding:10px 14px;background:var(--bg-mid);border:1px solid var(--border);border-radius:6px}
+.filter-label{font-size:11px;color:#888;text-transform:uppercase;letter-spacing:1px;margin-left:6px}
+.pill{padding:5px 12px;border-radius:14px;background:var(--surface);border:1px solid #555;cursor:pointer;font-size:12px;color:#ccc;font-weight:bold}
+.pill:hover{background:#3a3a48;color:#fff;border-color:#777}
+.pill.active{background:var(--gold);color:#000;border-color:var(--gold)}
+.search-input{flex:1;min-width:200px;height:30px}
+.type-badge{display:inline-block;padding:3px 10px;border-radius:4px;font-size:11px;font-weight:bold;min-width:50px;text-align:center}
+.type-bis{background:#B388FF;color:#1a1a20}
+.type-ms{background:#4CAF50;color:#fff}
+.type-os{background:#FF9800;color:#1a1a20}
+.type-minor{background:#03A9F4;color:#fff}
+.type-free{background:#607D8B;color:#fff}
+.type-tmog{background:#E91E63;color:#fff}
+.type-pass{background:#555;color:#fff}
+.type-de{background:#777;color:#fff}
+.type-other,.type-bank,.type-trash{background:#444;color:#fff}
+.wh-link{text-decoration:none;font-weight:bold;color:var(--link)}
+.wh-link:hover{color:var(--gold)}
+.matrix{display:flex;flex-direction:column;gap:6px}
+.class-row{display:flex;align-items:center;gap:8px;padding:6px 10px;background:var(--bg-mid);border:1px solid var(--border);border-radius:4px}
+.class-row .class-label{font-size:12px;font-weight:bold;text-transform:uppercase;letter-spacing:1.5px;min-width:90px;flex-shrink:0;border-right:1px solid var(--border);padding-right:10px}
+.class-row .raider-row{display:flex;flex-wrap:wrap;gap:5px;flex:1}
+.class-row .empty-class{color:#555;font-style:italic;font-size:12px}
+.raider-chip{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;background:var(--surface);border:1px solid #444;border-radius:14px;cursor:pointer;font-size:13px;font-weight:bold}
+.raider-chip:hover{background:#3a3a48;border-color:var(--gold)}
+.raider-chip.selected{background:#3a3000;border-color:var(--gold);box-shadow:0 0 0 1px var(--gold)}
+.raider-chip .chip-count{font-size:11px;color:#999;font-weight:normal;padding:0 4px;background:rgba(0,0,0,0.3);border-radius:8px}
+.raider-chip.selected .chip-count{color:var(--gold)}
+.compare-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 14px;background:var(--bg-mid);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:6px;margin:14px 0 12px 0}
+.compare-label{font-size:13px;font-weight:bold;color:var(--gold)}
+.compare-chip{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;background:var(--surface);border:1px solid var(--gold);border-radius:12px;font-size:12px;font-weight:bold}
+.compare-chip .x{cursor:pointer;opacity:0.6;padding:0 2px}
+.compare-chip .x:hover{opacity:1;color:var(--danger)}
+.compare-grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(310px,1fr))}
+.compare-col{background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:6px;padding:10px 14px}
+.compare-col .compare-head{font-size:17px;font-weight:bold;padding-bottom:5px;margin-bottom:6px;border-bottom:1px solid var(--border)}
+.compare-col .compare-meta{font-size:11px;color:#888;margin-bottom:8px;text-transform:uppercase;letter-spacing:.8px}
+.compare-col table{font-size:12px}
+.compare-col th{font-size:10px;padding:4px 6px}
+.compare-col td{padding:5px 6px;font-size:12px}
+.compare-col .compare-empty{color:#777;font-style:italic;padding:8px 0;font-size:12px}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:16px}
+.stat-card{background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:6px;padding:14px;text-align:center}
+.stat-num{font-size:28px;font-weight:bold;color:var(--gold)}
+.stat-label{font-size:12px;color:#aaa;margin-top:5px}
+.roster-add-form{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+.roster-add-form input[type=text]{width:160px;flex:0 0 160px}
+.roster-add-form select{width:130px;flex:0 0 130px}
+.roster-player-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:4px;max-height:320px;overflow-y:auto;padding:4px}
+.roster-player{display:flex;align-items:center;gap:8px;padding:5px 10px;background:#1e1e28;border:1px solid #333;border-radius:3px}
+.rp-name{flex:1;font-weight:bold;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rp-count{font-size:11px;color:#777;flex-shrink:0}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:10000;display:none;align-items:center;justify-content:center}
+.modal-overlay.show{display:flex}
+.modal-box{background:var(--panel);border:2px solid var(--gold);border-radius:8px;padding:24px;min-width:500px;max-width:720px;max-height:85vh;overflow-y:auto}
+.modal-box h3{color:var(--gold);margin:0 0 16px 0}
+.modal-actions{display:flex;gap:10px;margin-top:16px;justify-content:flex-end}
+.empty{text-align:center;padding:30px;color:#888;font-style:italic}
+.help-box{background:var(--bg-mid);border-left:3px solid var(--gold);padding:10px 14px;margin-top:8px;font-size:12px;color:#bbb;border-radius:4px;display:none}
+.help-box.open{display:block}
+.help-box code{background:#000;padding:2px 5px;border-radius:3px;color:var(--gold)}
+.help-link{font-size:12px;color:#888;cursor:pointer}
+.help-link:hover{color:var(--gold)}
+.counter-bar{font-size:13px;color:#888}
+.counter-bar b{color:var(--gold)}
+.small-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:8px;font-size:13px;color:#aaa}
+</style>
+</head>
+<body class="webp" data-wh-webp="true">
+<div class="container">
+<h1>🛡️ Vesuvius Loot Master</h1>
+<div class="panel">
+<div class="header-flex">
+<div><h2>Loot Council Overblik</h2><div id="counter" class="counter-bar" style="margin-top:6px">📦 Items: <b>0</b> · 👥 Raidere med loot: <b>0</b> · 🛡️ Roster: <b>28</b></div></div>
+</div></div>
+
+
+<div class="tabs" id="phaseTabs">
+<button class="tab-btn active" data-phase="all" onclick="switchPhase('all')">Alle phases</button>
+<button class="tab-btn" data-phase="P1" onclick="switchPhase('P1')">Phase 1 — Kara/Gruul/Mag</button>
+<button class="tab-btn" data-phase="P2" onclick="switchPhase('P2')">Phase 2 — SSC/TK</button>
+<button class="tab-btn" data-phase="P3" onclick="switchPhase('P3')">Phase 3 — Hyjal/BT</button>
+<button class="tab-btn" data-phase="P4" onclick="switchPhase('P4')">Phase 4 — ZA</button>
+<button class="tab-btn" data-phase="P5" onclick="switchPhase('P5')">Phase 5 — Sunwell</button>
+</div>
+<div class="tabs tabs-secondary" id="viewTabs">
+<button class="tab-btn active" data-view="raiders" onclick="switchView('raiders')">👥 Raidere</button>
+<button class="tab-btn" data-view="all" onclick="switchView('all')">📜 Al Loot</button>
+<button class="tab-btn" data-view="stats" onclick="switchView('stats')">📊 Statistik</button>
+</div>
+<div class="filters">
+<input type="text" id="search" class="search-input" placeholder="🔍 Søg navne, items, boss..." oninput="render()">
+<span class="filter-label">Type</span>
+<span class="pill active" data-resp="all" onclick="toggleResp('all')">Alle</span>
+<span class="pill" data-resp="BIS" onclick="toggleResp('BIS')">BIS</span>
+<span class="pill" data-resp="MS" onclick="toggleResp('MS')">MS</span>
+<span class="pill" data-resp="OS" onclick="toggleResp('OS')">OS</span>
+<span class="pill" data-resp="Minor" onclick="toggleResp('Minor')">Minor</span>
+<span class="pill" data-resp="DE" onclick="toggleResp('DE')">DE</span>
+<span class="filter-label">Raid</span>
+<span id="raidPills"><span class="pill active" onclick="toggleRaid('all')">Alle</span><span class="pill " onclick="toggleRaid('Karazhan')">Karazhan</span><span class="pill " onclick="toggleRaid('Gruul')">Gruul</span><span class="pill " onclick="toggleRaid('Magtheridon')">Magtheridon</span><span class="pill " onclick="toggleRaid('SSC')">SSC</span><span class="pill " onclick="toggleRaid('TK')">TK</span><span class="pill " onclick="toggleRaid('Hyjal')">Hyjal</span><span class="pill " onclick="toggleRaid('BT')">BT</span><span class="pill " onclick="toggleRaid('ZA')">ZA</span><span class="pill " onclick="toggleRaid('Sunwell')">Sunwell</span></span>
+</div>
+<div id="content"><div class="panel" style="padding-top:12px;padding-bottom:12px;margin-bottom:14px"><div class="header-flex" style="margin-bottom:10px"><h2>👥 Raidere efter klasse</h2><span style="font-size:12px;color:#888">Klik for at vælge — vælg flere for sammenligning nedenunder</span></div><div class="matrix"><div class="class-row"><div class="class-label d-color">druid</div><div class="raider-row"><span class="raider-chip " onclick="toggleRaiderSelect('Munkefar')"><span class="d-color">Munkefar</span><span class="chip-count">0</span></span><span class="raider-chip " onclick="toggleRaiderSelect('Sardin')"><span class="d-color">Sardin</span><span class="chip-count">0</span></span></div></div><div class="class-row"><div class="class-label h-color">hunter</div><div class="raider-row"><span class="raider-chip " onclick="toggleRaiderSelect('Kidneyfail')"><span class="h-color">Kidneyfail</span><span class="chip-count">0</span></span><span class="raider-chip " onclick="toggleRaiderSelect('Nazxz')"><span class="h-color">Nazxz</span><span class="chip-count">0</span></span></div></div><div class="class-row"><div class="class-label m-color">mage</div><div class="raider-row"><span class="raider-chip " onclick="toggleRaiderSelect('Bábábábábá')"><span class="m-color">Bábábábábá</span><span class="chip-count">0</span></span><span class="raider-chip " onclick="toggleRaiderSelect('Teddylegs')"><span class="m-color">Teddylegs</span><span class="chip-count">0</span></span><span class="raider-chip " onclick="toggleRaiderSelect('Zakis')"><span class="m-color">Zakis</span><span class="chip-count">0</span></span></div></div><div class="class-row"><div class="class-label p-color">paladin</div><div class="raider-row"><span class="raider-chip " onclick="toggleRaiderSelect('Kristensen')"><span class="p-color">Kristensen</span><span class="chip-count">0</span></span><span class="raider-chip " onclick="toggleRaiderSelect('Lyssja')"><span class="p-color">Lyssja</span><span class="chip-count">0</span></span><span class="raider-chip " onclick="toggleRaiderSelect('Nobreaks')"><span class="p-color">Nobreaks</span><span class="chip-count">0</span></span><span class="raider-chip " onclick="toggleRaiderSelect('Yakze')"><span class="p-color">Yakze</span><span class="chip-count">0</span></span></div></div><div class="class-row"><div class="class-label pr-color">priest</div><div class="raider-row"><span class="raider-chip " onclick="toggleRaiderSelect('Áhn')"><span class="pr-color">Áhn</span><span class="chip-count">0</span></span><span class="raider-chip " onclick="toggleRaiderSelect('Talessah')"><span class="pr-color">Talessah</span><span class="chip-count">0</span></span></div></div><div class="class-row"><div class="class-label r-color">rogue</div><div class="raider-row"><span class="raider-chip " onclick="toggleRaiderSelect('Fifilongwind')"><span class="r-color">Fifilongwind</span><span class="chip-count">0</span></span><span class="raider-chip " onclick="toggleRaiderSelect('hanzidk')"><span class="r-color">hanzidk</span><span class="chip-count">0</span></span></div></div><div class="class-row"><div class="class-label s-color">shaman</div><div class="raider-row"><span class="raider-chip " onclick="toggleRaiderSelect('Bazookabetty')"><span class="s-color">Bazookabetty</span><span class="chip-count">0</span></span><span class="raider-chip " onclick="toggleRaiderSelect('Bootyliciouz')"><span class="s-color">Bootyliciouz</span><span class="chip-count">0</span></span><span class="raider-chip " onclick="toggleRaiderSelect('Hodoo')"><span class="s-color">Hodoo</span><span class="chip-count">0</span></span><span class="raider-chip " onclick="toggleRaiderSelect('Pixelsvin')"><span class="s-color">Pixelsvin</span><span class="chip-count">0</span></span><span class="raider-chip " onclick="toggleRaiderSelect('Skvat')"><span class="s-color">Skvat</span><span class="chip-count">0</span></span><span class="raider-chip " onclick="toggleRaiderSelect('Thurakan')"><span class="s-color">Thurakan</span><span class="chip-count">0</span></span></div></div><div class="class-row"><div class="class-label wl-color">warlock</div><div class="raider-row"><span class="raider-chip " onclick="toggleRaiderSelect('Darksnackz')"><span class="wl-color">Darksnackz</span><span class="chip-count">0</span></span><span class="raider-chip " onclick="toggleRaiderSelect('Schnohr')"><span class="wl-color">Schnohr</span><span class="chip-count">0</span></span><span class="raider-chip " onclick="toggleRaiderSelect('Spytmigiøret')"><span class="wl-color">Spytmigiøret</span><span class="chip-count">0</span></span></div></div><div class="class-row"><div class="class-label w-color">warrior</div><div class="raider-row"><span class="raider-chip " onclick="toggleRaiderSelect('Democ')"><span class="w-color">Democ</span><span class="chip-count">0</span></span><span class="raider-chip " onclick="toggleRaiderSelect('Kôld')"><span class="w-color">Kôld</span><span class="chip-count">0</span></span><span class="raider-chip " onclick="toggleRaiderSelect('Krigzb')"><span class="w-color">Krigzb</span><span class="chip-count">0</span></span><span class="raider-chip " onclick="toggleRaiderSelect('Philip')"><span class="w-color">Philip</span><span class="chip-count">0</span></span></div></div></div></div><div class="empty" style="padding:20px;font-size:13px">💡 Vælg en eller flere raidere ovenfor for at sammenligne deres loot side-om-side.</div></div>
+</div>
+
+<script id="mainScript">
+const CSS_TO_CLASS={'w-color':'warrior','p-color':'paladin','h-color':'hunter','r-color':'rogue','pr-color':'priest','s-color':'shaman','m-color':'mage','wl-color':'warlock','d-color':'druid','u-color':'unknown'};
+const CLASS_TO_CSS=Object.fromEntries(Object.entries(CSS_TO_CLASS).map(([k,v])=>[v,k]));
+const CLASS_ORDER=['druid','hunter','mage','paladin','priest','rogue','shaman','warlock','warrior'];
+const RESP_PRIORITY={"BIS":1,"MS":2,"Minor":3,"OS":4,"Free":5,"TMOG":6,"Pass":7,"DE":8,"Bank":9,"Trash":9,"Other":50};
+const RESP_NORMALIZE_RAW={"BIS":"BIS","BIS UPGRADE":"BIS","BEST IN SLOT":"BIS","MAINSPEC":"MS","MS":"MS","MAIN SPEC":"MS","NEED":"MS","MAINSPEC/NEED":"MS","MINOR":"Minor","MINOR UPGRADE":"Minor","OS":"OS","OFFSPEC":"OS","OFF SPEC":"OS","GREED":"OS","OFFSPEC/GREED":"OS","FREE":"Free","FREE ROLL":"Free","TMOG":"TMOG","TRANSMOG":"TMOG","PASS":"Pass","AUTOPASS":"Pass","DE":"DE","DISENCHANT":"DE","|DE|":"DE","BANK":"Bank","TRASH":"Trash"};
+const RESP_BY_ID={1:"BIS",2:"MS",3:"Minor",4:"OS",5:"Free",6:"TMOG",7:"Pass",8:"DE"};
+const PHASES={
+'P1':{raids:{'Karazhan':['attumen','moroes','maiden','opera','curator','illhoof','aran','netherspite','nightbane','prince'],'Gruul':['maulgar','gruul'],'Magtheridon':['magtheridon']}},
+'P2':{raids:{'SSC':['hydross','lurker','leotheras','karathress','morogrim','vashj'],'TK':['void reaver','voidreaver','solarian','alar',"al'ar",'kael',"kael'thas"]}},
+'P3':{raids:{'Hyjal':['winterchill','anetheron',"kaz'rogal",'azgalor','archimonde'],'BT':["naj'entus",'supremus','akama','teron','bloodboil','council','shahraz','illidan']}},
+'P4':{raids:{'ZA':['nalorakk',"akil'zon","jan'alai",'halazzi','malacrass',"zul'jin"]}},
+'P5':{raids:{'Sunwell':['kalecgos','brutallus','felmyst','twins',"m'uru","kil'jaeden"]}}
+};
+const INSTANCE_TAGS=[[/karazhan|kara/,'P1','Karazhan'],[/gruul|hkm/,'P1','Gruul'],[/magther/,'P1','Magtheridon'],[/serpentshrine|coilfang|ssc/,'P2','SSC'],[/tempest keep|the eye|tk\b/,'P2','TK'],[/hyjal/,'P3','Hyjal'],[/black temple|bt\b/,'P3','BT'],[/zul'?aman|za\b/,'P4','ZA'],[/sunwell/,'P5','Sunwell']];
+const RAIDIFY_CLASS_MAP={'warrior':'w-color','paladin':'p-color','hunter':'h-color','rogue':'r-color','priest':'pr-color','shaman':'s-color','mage':'m-color','warlock':'wl-color','druid':'d-color'};
+
+let lootData=[];
+let playerClasses={"philip":"1","yakze":"2","sardin":"11","healers (4)":"druid","lyssja":"2","nobreaks":"2","áhn":"5","bootyliciouz":"7","melee dps (8)":"shaman","democ":"1","kôld":"1","krigzb":"1","munkefar":"11","fifilongwind":"4","hanzidk":"4","pixelsvin":"7","thurakan":"7","ranged dps (11)":"shaman","kidneyfail":"3","nazxz":"3","bábábábábá":"8","teddylegs":"8","zakis":"8","talessah":"5","darksnackz":"9","schnohr":"9","spytmigiøret":"warlock","bazookabetty":"7","hodoo":"7","skvat":"7","kristensen":"2","seabuss":"1","mizzux":"2","bottlez":"8","notsomymage":"8","gorehowll":"1","ðahlia":"2","preisel":"2","healingtide":"7","gockkobbler":"1","zycur":"7","lumpidroo":"11","søsterstine":"5","punkhazard":"9","sayudu":"11","sinnaorc":"1","drsick":"9","feralko":"11","greenhope":"7","lounetic":"1","jegskalbare":"4","docjones":"2","skanka":"5","sugarhealz":"11","titangesicht":"1","päìn":"5","vaskekum":"2","zakssacks":"7","bellanotte":"5","tündércafat":"7","tyrrmond":"5","tazrul":"11","exclusivé":"5","ilso":"7","trollion":"1","xoxoqt":"9","idb":"1","wyldro":"11","chetzen":"9","critsama":"4","økomælk":"11","beefstealth":"11","skeetsheet":"2","kedrae":"8","msw":"1","keirámetz":"8","maraayea":"2","sindragossa":"3","tibastono":"3","escóbär":"11","samuelshifts":"11","bradockk":"4","amek":"9","yggsja":"11"};
+let roster=[{"name":"Munkefar","cls":"d-color"},{"name":"Sardin","cls":"d-color"},{"name":"Kidneyfail","cls":"h-color"},{"name":"Nazxz","cls":"h-color"},{"name":"Bábábábábá","cls":"m-color"},{"name":"Teddylegs","cls":"m-color"},{"name":"Zakis","cls":"m-color"},{"name":"Kristensen","cls":"p-color"},{"name":"Lyssja","cls":"p-color"},{"name":"Nobreaks","cls":"p-color"},{"name":"Yakze","cls":"p-color"},{"name":"Áhn","cls":"pr-color"},{"name":"Talessah","cls":"pr-color"},{"name":"Fifilongwind","cls":"r-color"},{"name":"hanzidk","cls":"r-color"},{"name":"Bazookabetty","cls":"s-color"},{"name":"Bootyliciouz","cls":"s-color"},{"name":"Hodoo","cls":"s-color"},{"name":"Pixelsvin","cls":"s-color"},{"name":"Skvat","cls":"s-color"},{"name":"Thurakan","cls":"s-color"},{"name":"Darksnackz","cls":"wl-color"},{"name":"Schnohr","cls":"wl-color"},{"name":"Spytmigiøret","cls":"wl-color"},{"name":"Democ","cls":"w-color"},{"name":"Kôld","cls":"w-color"},{"name":"Krigzb","cls":"w-color"},{"name":"Philip","cls":"w-color"}];
+let editingIndex=-1;
+let currentSort={col:'date',desc:true};
+let currentView='raiders';
+let currentPhase='all';
+let respFilter='all';
+let raidFilter='all';
+let selectedRaiders=new Set();
+
+function checkCache(){
+  try{
+    const a=localStorage.getItem('vesuvius_loot_v3');if(a&&lootData.length===0)lootData=JSON.parse(a);
+    const b=localStorage.getItem('vesuvius_classes_v3');if(b)playerClasses=JSON.parse(b);
+    const c=localStorage.getItem('vesuvius_roster_v3');if(c)roster=JSON.parse(c);
+  }catch(e){console.warn(e)}
+}
+function save(){
+  localStorage.setItem('vesuvius_loot_v3',JSON.stringify(lootData));
+  localStorage.setItem('vesuvius_classes_v3',JSON.stringify(playerClasses));
+  localStorage.setItem('vesuvius_roster_v3',JSON.stringify(roster));
+}
+function escHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function normalizeResp(r,responseID){
+  if(r!==undefined&&r!==null&&r!==''){
+    const key=String(r).trim().toUpperCase();
+    if(RESP_NORMALIZE_RAW[key])return RESP_NORMALIZE_RAW[key];
+    const compact=key.replace(/[-_\s\/]/g,'');
+    for(const k of Object.keys(RESP_NORMALIZE_RAW)){
+      if(k.replace(/[-_\s\/]/g,'')===compact)return RESP_NORMALIZE_RAW[k];
+    }
+  }
+  if(responseID!==undefined&&responseID!==null&&responseID!==''){
+    const id=parseInt(responseID);if(RESP_BY_ID[id])return RESP_BY_ID[id];
+  }
+  return r?String(r).slice(0,12):"Other";
+}
+function respPriority(r){return RESP_PRIORITY[r]!==undefined?RESP_PRIORITY[r]:50}
+function extractItemId(r){
+  const cands=[r.id,r.itemID,r.itemId,r.itemString,r.itemLink,r.item];
+  for(const f of cands){
+    if(f===null||f===undefined)continue;
+    const s=String(f).trim();if(!s)continue;
+    let m=s.match(/[Ii]tem[:=](\d+)/);if(m){const n=parseInt(m[1]);if(n>0)return n}
+    m=s.match(/Hitem:(\d+)/);if(m){const n=parseInt(m[1]);if(n>0)return n}
+    if(/^\d+$/.test(s)){const n=parseInt(s);if(n>0)return n}
+    m=s.match(/^(\d{2,7})\b/);if(m){const n=parseInt(m[1]);if(n>0)return n}
+  }
+  return 0;
+}
+function detectPhaseRaid(record){
+  const inLow=String(record.instance||'').toLowerCase();
+  const bLow=String(record.boss||'').toLowerCase();
+  for(const [re,p,raid] of INSTANCE_TAGS)if(re.test(inLow))return [p,raid];
+  for(const phaseId of Object.keys(PHASES)){
+    for(const raid of Object.keys(PHASES[phaseId].raids)){
+      if(PHASES[phaseId].raids[raid].some(b=>bLow.includes(b)))return [phaseId,raid];
+    }
+  }
+  return ['',''];
+}
+function parseAnyJSON(input){
+  let cleaned=input.replace(/```json|```/g,'').trim();
+  const data=JSON.parse(cleaned);
+  const records=[];
+  if(Array.isArray(data))data.forEach(it=>records.push(normalizeRecord(it)));
+  else if(data&&typeof data==='object'){
+    const isSingle=data.hasOwnProperty('item')||data.hasOwnProperty('itemLink')||data.hasOwnProperty('player');
+    if(isSingle)records.push(normalizeRecord(data));
+    else Object.keys(data).forEach(k=>{
+      const v=data[k];
+      if(Array.isArray(v))v.forEach(it=>{
+        if(!it.player&&!it.awardedTo)it.player=k;
+        records.push(normalizeRecord(it));
+      });
+    });
+  }else throw new Error("Ukendt JSON-struktur");
+  return records;
+}
+function normalizeRecord(r){
+  let player=r.player||r.awardedTo||r.winner||r.name||"Ukendt";
+  player=String(player).split('-')[0].trim();
+  let cls=r.class||r.winnerClass||r.classCode||null;
+  if(cls)cls=String(cls).toLowerCase().replace(/\s/g,'');
+  if(player.toLowerCase()==='disenchant'||player==='|de|'||r.awardedTo==='|de|'){player='Disenchant';cls='disenchant'}
+  let item=r.item||r.itemName||r.itemLink||"Ukendt Item";
+  item=String(item).replace(/^\[|\]$/g,'').replace(/\|c[0-9a-fA-F]{8}\|H[^|]+\|h\[?/,'').replace(/\]?\|h\|r/,'');
+  const id=extractItemId(r);
+  const response=normalizeResp(r.response||r.winningRollType||r.resp,r.responseID);
+  let date=r.date||'',time=r.time||'';
+  let ts=parseInt(r.ts||r.timestamp||0)||0;
+  if(!ts&&date){
+    const parts=String(date).split('/');
+    if(parts.length===3){
+      const y=parts[2].length===2?2000+parseInt(parts[2]):parseInt(parts[2]);
+      const t=new Date(y,parseInt(parts[1])-1,parseInt(parts[0]));
+      if(!isNaN(t.getTime()))ts=Math.floor(t.getTime()/1000);
+    }
+  }
+  if(!ts)ts=Math.floor(Date.now()/1000);
+  if(!date)date=new Date(ts*1000).toLocaleDateString('da-DK');
+  const instance=r.instance||'',boss=r.boss||'';
+  const [phase,raid]=detectPhaseRaid({instance,boss});
+  if(player!=='Disenchant'&&player!=='Ukendt'&&cls)playerClasses[player.toLowerCase()]=cls;
+  else if(cls===null&&playerClasses[player.toLowerCase()])cls=playerClasses[player.toLowerCase()];
+  return {ts,date,time,player,class:cls,item,id,response,instance,boss,phase,raid,note:r.note||'',votes:parseInt(r.votes||0)||0};
+}
+function addLoot(){
+  const input=document.getElementById("rawInput").value.trim();
+  if(!input)return;
+  const dp=document.getElementById("defaultPhase").value;
+  try{
+    const processed=parseAnyJSON(input);
+    if(dp!=='auto'){
+      const fr=Object.keys(PHASES[dp].raids)[0];
+      processed.forEach(r=>{if(!r.phase){r.phase=dp;r.raid=r.raid||fr}});
+    }
+    const existing=new Set(lootData.map(l=>l.ts+"_"+l.id+"_"+l.player));
+    const fresh=processed.filter(l=>!existing.has(l.ts+"_"+l.id+"_"+l.player));
+    lootData=[...fresh,...lootData];
+    document.getElementById("rawInput").value="";
+    save();render();
+    alert("✅ "+fresh.length+" items tilføjet.");
+  }catch(e){alert("❌ Fejl: "+e.message);console.error(e)}
+}
+function parseRaidifyText(text){
+  const players=[];
+  let currentClass=null;
+  for(const raw of text.split('\n')){
+    const line=raw.trim();
+    if(!line)continue;
+    const ch=line.match(/(?::wow_(\w+):\s*)?_?_?\*?\*?(Warrior|Paladin|Hunter|Rogue|Priest|Shaman|Mage|Warlock|Druid)\s*\(\d+\)/i);
+    if(ch){const cn=(ch[1]||ch[2]).toLowerCase();if(RAIDIFY_CLASS_MAP[cn])currentClass=RAIDIFY_CLASS_MAP[cn]}
+    const re=/:wow_(\w+?)_(\w+):\s*([A-Za-zÀ-ÿ][A-Za-zÀ-ÿ0-9'\-]*)/g;
+    let m,foundEmoji=false;
+    while((m=re.exec(line))!==null){
+      foundEmoji=true;
+      const baseClass=m[1].toLowerCase();
+      const name=m[3].trim();
+      const cls=RAIDIFY_CLASS_MAP[baseClass]||currentClass||'u-color';
+      if(name.length>1&&!/^\d+$/.test(name))players.push({name,cls});
+    }
+    if(!foundEmoji&&currentClass){
+      const stripped=line.replace(/_?_?\*?\*?(Warrior|Paladin|Hunter|Rogue|Priest|Shaman|Mage|Warlock|Druid)\s*\(\d+\)\*?\*?_?_?/i,'').trim();
+      if(stripped){
+        stripped.split(/\s{2,}|,\s*/).map(s=>s.trim()).filter(s=>s&&/^[A-Za-zÀ-ÿ]/.test(s)).forEach(name=>{
+          players.push({name,cls:currentClass});
+        });
+      }
+    }
+  }
+  return players;
+}
+function parseSimpleList(text){
+  const players=[];
+  text.split('\n').forEach(line=>{
+    const t=line.trim();if(!t)return;
+    const [name,clsRaw]=t.split(':').map(s=>s&&s.trim());
+    if(!name)return;
+    let cls='u-color';
+    if(clsRaw){const k=clsRaw.toLowerCase();if(RAIDIFY_CLASS_MAP[k])cls=RAIDIFY_CLASS_MAP[k]}
+    players.push({name,cls});
+  });
+  return players;
+}
+function openRosterImport(){document.getElementById('rosterImportModal').classList.add('show')}
+function closeRosterImport(){document.getElementById('rosterImportModal').classList.remove('show')}
+function parseAndImportRoster(){
+  const text=document.getElementById('rosterImportText').value;
+  if(!text.trim())return;
+  let parsed=parseRaidifyText(text);
+  if(parsed.length===0)parsed=parseSimpleList(text);
+  if(parsed.length===0){alert("Kunne ikke finde nogen spillere.");return}
+  const seen=new Set();const unique=[];
+  parsed.forEach(p=>{const k=p.name.toLowerCase();if(!seen.has(k)){seen.add(k);unique.push(p)}});
+  roster=unique;
+  unique.forEach(p=>{const wow=CSS_TO_CLASS[p.cls];if(wow&&wow!=='unknown')playerClasses[p.name.toLowerCase()]=wow});
+  closeRosterImport();
+  document.getElementById('rosterImportText').value='';
+  sortRoster();save();render();renderRosterList();
+  alert("✅ "+unique.length+" raidere importeret.");
+}
+function addRosterPlayer(){
+  const inp=document.getElementById('rosterNewName');
+  const sel=document.getElementById('rosterNewCls');
+  const name=inp.value.trim();
+  if(!name){inp.focus();return}
+  const cls=sel.value;
+  const idx=roster.findIndex(r=>r.name.toLowerCase()===name.toLowerCase());
+  if(idx>=0)roster[idx]={name,cls};else roster.push({name,cls});
+  const wow=CSS_TO_CLASS[cls];
+  if(wow&&wow!=='unknown')playerClasses[name.toLowerCase()]=wow;
+  inp.value='';
+  sortRoster();save();render();renderRosterList();
+  inp.focus();
+}
+function removeRosterPlayer(idx){roster.splice(idx,1);save();render();renderRosterList()}
+function sortRoster(){
+  roster.sort((a,b)=>{
+    const ca=CSS_TO_CLASS[a.cls]||'zzz',cb=CSS_TO_CLASS[b.cls]||'zzz';
+    const ia=CLASS_ORDER.indexOf(ca),ib=CLASS_ORDER.indexOf(cb);
+    if(ia!==ib)return (ia===-1?99:ia)-(ib===-1?99:ib);
+    return a.name.localeCompare(b.name);
+  });
+}
+function clearRoster(){if(confirm("Ryd hele rosteren?")){roster=[];save();render();renderRosterList()}}
+function renderRosterList(){
+  const list=document.getElementById('rosterPlayerList');
+  const cnt=document.getElementById('rosterCount');
+  if(cnt)cnt.textContent=roster.length?'('+roster.length+')':'';
+  if(!list)return;
+  if(roster.length===0){list.innerHTML='<div style="color:#777;font-style:italic;padding:8px">Ingen raidere endnu — tilføj manuelt eller importér.</div>';return}
+  list.innerHTML=roster.map((p,i)=>{
+    const lc=lootData.filter(l=>l.player.toLowerCase()===p.name.toLowerCase()).length;
+    return '<div class="roster-player"><span class="rp-name '+p.cls+'">'+escHtml(p.name)+'</span><span class="rp-count">'+lc+' loot</span><button class="btn-small btn-danger" onclick="removeRosterPlayer('+i+')">✕</button></div>';
+  }).join('');
+}
+function getPhaseFiltered(){return currentPhase==='all'?lootData:lootData.filter(r=>r.phase===currentPhase)}
+function getFiltered(){
+  const s=(document.getElementById("search").value||'').toLowerCase().trim();
+  return getPhaseFiltered().filter(r=>{
+    if(respFilter!=='all'&&r.response!==respFilter)return false;
+    if(raidFilter!=='all'&&r.raid!==raidFilter)return false;
+    if(s){const hay=(r.player+' '+r.item+' '+r.boss+' '+r.response+' '+r.raid).toLowerCase();if(!hay.includes(s))return false}
+    return true;
+  });
+}
+function render(){
+  const isMaster=!!document.getElementById("masterInputPanel");
+  const phaseRows=getPhaseFiltered();
+  const players=new Set(phaseRows.filter(l=>l.player!=='Disenchant').map(l=>l.player));
+  document.getElementById("counter").innerHTML='📦 Items: <b>'+phaseRows.length+'</b> · 👥 Raidere med loot: <b>'+players.size+'</b> · 🛡️ Roster: <b>'+roster.length+'</b>';
+  const raidPills=document.getElementById("raidPills");
+  let opts=currentPhase==='all'?Object.keys(PHASES).flatMap(p=>Object.keys(PHASES[p].raids)):Object.keys(PHASES[currentPhase].raids);
+  let pillHTML='<span class="pill '+(raidFilter==='all'?'active':'')+'" onclick="toggleRaid(\'all\')">Alle</span>';
+  opts.forEach(r=>{pillHTML+='<span class="pill '+(raidFilter===r?'active':'')+'" onclick="toggleRaid(\''+r+'\')">'+r+'</span>'});
+  raidPills.innerHTML=pillHTML;
+  const content=document.getElementById("content");
+  const filtered=getFiltered();
+  if(currentView==='raiders')content.innerHTML=renderRaiders(filtered);
+  else if(currentView==='all')content.innerHTML=renderAllTable(filtered,isMaster);
+  else if(currentView==='stats')content.innerHTML=renderStats(filtered);
+  if(window.$WowheadPower)try{$WowheadPower.refreshLinks()}catch(e){}
+}
+function whLink(id,name){
+  if(!id||id===0)return '<span style="color:#999">'+escHtml(name)+'</span>';
+  return '<a href="https://www.wowhead.com/tbc/item='+id+'" data-wowhead="item='+id+'&domain=tbc" class="wh-link">'+escHtml(name)+'</a>';
+}
+function renderRaiders(rows){
+  const byPlayer={};
+  rows.forEach(r=>{if(r.player!=='Disenchant')(byPlayer[r.player]=byPlayer[r.player]||[]).push(r)});
+  const memberMap=new Map();
+  roster.forEach(p=>memberMap.set(p.name.toLowerCase(),{name:p.name,cls:p.cls,items:byPlayer[p.name]||[]}));
+  Object.keys(byPlayer).forEach(name=>{
+    if(memberMap.has(name.toLowerCase())){memberMap.get(name.toLowerCase()).items=byPlayer[name];return}
+    const wowCls=(byPlayer[name][0]&&byPlayer[name][0].class)||playerClasses[name.toLowerCase()]||'unknown';
+    const cssCls=CLASS_TO_CSS[wowCls]||'u-color';
+    memberMap.set(name.toLowerCase(),{name,cls:cssCls,items:byPlayer[name]});
+  });
+  const byClass={};
+  CLASS_ORDER.forEach(c=>byClass[c]=[]);
+  byClass['unknown']=[];
+  [...memberMap.values()].forEach(m=>{const wow=CSS_TO_CLASS[m.cls]||'unknown';(byClass[wow]=byClass[wow]||[]).push(m)});
+  Object.keys(byClass).forEach(c=>byClass[c].sort((a,b)=>a.name.localeCompare(b.name)));
+  let html='<div class="panel" style="padding-top:12px;padding-bottom:12px;margin-bottom:14px"><div class="header-flex" style="margin-bottom:10px"><h2>👥 Raidere efter klasse</h2><span style="font-size:12px;color:#888">Klik for at vælge — vælg flere for sammenligning nedenunder</span></div><div class="matrix">';
+  const order=[...CLASS_ORDER,'unknown'];
+  let totalShown=0;
+  order.forEach(cls=>{
+    const members=byClass[cls]||[];
+    if(members.length===0&&cls==='unknown')return;
+    totalShown+=members.length;
+    const cssCls=CLASS_TO_CSS[cls]||'u-color';
+    html+='<div class="class-row"><div class="class-label '+cssCls+'">'+cls+'</div><div class="raider-row">';
+    if(members.length===0)html+='<span class="empty-class">— ingen —</span>';
+    else members.forEach(m=>{
+      const isSel=selectedRaiders.has(m.name);
+      const safeName=m.name.replace(/'/g,"\\'");
+      html+='<span class="raider-chip '+(isSel?'selected':'')+'" onclick="toggleRaiderSelect(\''+safeName+'\')"><span class="'+m.cls+'">'+escHtml(m.name)+'</span><span class="chip-count">'+m.items.length+'</span></span>';
+    });
+    html+='</div></div>';
+  });
+  html+='</div></div>';
+  if(totalShown===0)html+='<div class="empty">Ingen raidere endnu — tilføj rosteren eller importér loot 🪄</div>';
+  if(selectedRaiders.size>0){
+    html+='<div class="compare-bar"><span class="compare-label">Sammenligning ('+selectedRaiders.size+')</span>';
+    [...selectedRaiders].forEach(n=>{
+      const m=memberMap.get(n.toLowerCase());
+      const cls=(m&&m.cls)||'u-color';
+      const safeN=n.replace(/'/g,"\\'");
+      html+='<span class="compare-chip"><span class="'+cls+'">'+escHtml(n)+'</span><span class="x" onclick="toggleRaiderSelect(\''+safeN+'\')">✕</span></span>';
+    });
+    html+='<button class="btn-small btn-danger" style="margin-left:auto" onclick="clearSelected()">Ryd alle</button></div>';
+    html+='<div class="compare-grid">';
+    [...selectedRaiders].forEach(n=>{
+      const m=memberMap.get(n.toLowerCase())||{name:n,cls:'u-color',items:[]};
+      html+=renderCompareCol(m);
+    });
+    html+='</div>';
+  }else{
+    html+='<div class="empty" style="padding:20px;font-size:13px">💡 Vælg en eller flere raidere ovenfor for at sammenligne deres loot side-om-side.</div>';
+  }
+  return html;
+}
+function renderCompareCol(member){
+  const items=[...member.items].sort((a,b)=>{const pa=respPriority(a.response),pb=respPriority(b.response);if(pa!==pb)return pa-pb;return b.ts-a.ts});
+  const wowCls=CSS_TO_CLASS[member.cls]||'unknown';
+  const counts={BIS:0,MS:0,OS:0,Andet:0};
+  items.forEach(it=>{if(counts[it.response]!==undefined)counts[it.response]++;else counts.Andet++});
+  let html='<div class="compare-col"><div class="compare-head"><span class="'+member.cls+'">'+escHtml(member.name)+'</span></div><div class="compare-meta">'+wowCls+' · '+items.length+' items · BIS '+counts.BIS+' / MS '+counts.MS+' / OS '+counts.OS+'</div>';
+  if(items.length===0)html+='<div class="compare-empty">Ingen loot endnu i den valgte phase/filter.</div>';
+  else{
+    html+='<table><thead><tr><th>Type</th><th>Item</th><th>Boss</th><th>Dato</th></tr></thead><tbody>';
+    items.forEach(it=>{
+      const tCls=String(it.response).toLowerCase().replace(/\s/g,'');
+      html+='<tr><td><span class="type-badge type-'+tCls+'">'+it.response+'</span></td><td>'+whLink(it.id,it.item)+'</td><td style="color:#aaa">'+escHtml(it.boss||'-')+'</td><td style="color:#888;font-size:11px">'+escHtml(it.date)+'</td></tr>';
+    });
+    html+='</tbody></table>';
+  }
+  html+='</div>';
+  return html;
+}
+function toggleRaiderSelect(name){if(selectedRaiders.has(name))selectedRaiders.delete(name);else selectedRaiders.add(name);render()}
+function clearSelected(){selectedRaiders.clear();render()}
+function sortFn(a,b){
+  const col=currentSort.col;
+  if(col==='response'){const pa=respPriority(a.response),pb=respPriority(b.response);if(pa!==pb)return currentSort.desc?pb-pa:pa-pb;return b.ts-a.ts}
+  if(col==='date')return currentSort.desc?b.ts-a.ts:a.ts-b.ts;
+  let va=a[col]||'',vb=b[col]||'';
+  if(typeof va==='string')return currentSort.desc?vb.localeCompare(va):va.localeCompare(vb);
+  return currentSort.desc?vb-va:va-vb;
+}
+function renderAllTable(rows,isMaster){
+  if(rows.length===0)return '<div class="empty">Ingen loot match — tilføj eksport eller juster filtre 🪄</div>';
+  const sorted=[...rows].sort(sortFn);
+  let html='<table><thead><tr><th class="sortable" onclick="sort(\'date\')">Dato</th><th class="sortable" onclick="sort(\'player\')">Vinder</th><th class="sortable" onclick="sort(\'item\')">Item</th><th class="sortable" onclick="sort(\'boss\')">Boss</th><th class="sortable" onclick="sort(\'raid\')">Raid</th><th class="sortable" onclick="sort(\'response\')">Type</th><th>Note</th>'+(isMaster?'<th>Admin</th>':'')+'</tr></thead><tbody>';
+  sorted.forEach(row=>{
+    const realIdx=lootData.indexOf(row);
+    const isEditing=editingIndex===realIdx;
+    const cssCls=CLASS_TO_CSS[row.class]||'u-color';
+    const tCls=String(row.response).toLowerCase().replace(/\s/g,'');
+    const phaseTag=row.phase?' <span style="color:#888;font-size:11px">('+row.phase+')</span>':'';
+    const adminCell=isMaster?'<td>'+(isEditing?'<button class="btn-small btn-add" onclick="saveEdit('+realIdx+')">✓</button>':'<span onclick="startEdit('+realIdx+')" style="cursor:pointer;margin-right:8px">✏️</span><span onclick="deleteItem('+realIdx+')" style="cursor:pointer;opacity:0.5">❌</span>')+'</td>':'';
+    const playerCell=isEditing?'<input type="text" id="editPlayer" value="'+escHtml(row.player)+'" style="width:130px">':escHtml(row.player);
+    const respCell=isEditing?respSelect(row.response):'<span class="type-badge type-'+tCls+'">'+escHtml(row.response)+'</span>';
+    html+='<tr><td>'+escHtml(row.date)+(row.time?' '+escHtml(String(row.time).split(':').slice(0,2).join(':')):'')+'</td><td class="'+cssCls+'">'+playerCell+'</td><td>'+whLink(row.id,row.item)+'</td><td>'+escHtml(row.boss||'-')+'</td><td>'+escHtml(row.raid||'-')+phaseTag+'</td><td>'+respCell+'</td><td style="font-size:12px;color:#aaa">'+escHtml(row.note||'')+'</td>'+adminCell+'</tr>';
+  });
+  return html+'</tbody></table>';
+}
+function respSelect(cur){const opts=['BIS','MS','OS','Minor','Free','TMOG','Pass','DE','Bank','Other'];return '<select id="editResp" style="width:120px">'+opts.map(o=>'<option '+(cur===o?'selected':'')+'>'+o+'</option>').join('')+'</select>'}
+function renderStats(rows){
+  const real=rows.filter(r=>r.player!=='Disenchant');
+  const counts={};real.forEach(r=>{counts[r.response]=(counts[r.response]||0)+1});
+  const players=new Set(real.map(r=>r.player));
+  const byRaid={};real.forEach(r=>{byRaid[r.raid||'?']=(byRaid[r.raid||'?']||0)+1});
+  let html='<div class="stats-grid">';
+  html+='<div class="stat-card"><div class="stat-num">'+real.length+'</div><div class="stat-label">Items uddelt</div></div>';
+  html+='<div class="stat-card"><div class="stat-num">'+players.size+'</div><div class="stat-label">Aktive raidere</div></div>';
+  Object.keys(byRaid).sort().forEach(raid=>{if(raid!=='?')html+='<div class="stat-card"><div class="stat-num">'+byRaid[raid]+'</div><div class="stat-label">'+escHtml(raid)+'</div></div>'});
+  Object.keys(counts).sort((a,b)=>respPriority(a)-respPriority(b)).forEach(t=>{
+    const tCls=String(t).toLowerCase().replace(/\s/g,'');
+    html+='<div class="stat-card"><div class="stat-num">'+counts[t]+'</div><div class="stat-label"><span class="type-badge type-'+tCls+'">'+escHtml(t)+'</span></div></div>';
+  });
+  html+='</div>';
+  const perPlayer={};
+  real.forEach(r=>{
+    if(!perPlayer[r.player])perPlayer[r.player]={total:0,BIS:0,MS:0,OS:0,Andet:0,class:r.class};
+    perPlayer[r.player].total++;
+    if(perPlayer[r.player][r.response]!==undefined)perPlayer[r.player][r.response]++;
+    else perPlayer[r.player].Andet++;
+  });
+  const list=Object.keys(perPlayer).sort((a,b)=>perPlayer[b].total-perPlayer[a].total);
+  if(list.length){
+    html+='<div class="panel"><h3>Loot pr. raider</h3><table><thead><tr><th>Raider</th><th>Total</th><th>BIS</th><th>MS</th><th>OS</th><th>Andet</th></tr></thead><tbody>';
+    list.forEach(pl=>{
+      const p2=perPlayer[pl];
+      const cssCls=CLASS_TO_CSS[p2.class]||'u-color';
+      html+='<tr><td class="'+cssCls+'">'+escHtml(pl)+'</td><td><b>'+p2.total+'</b></td><td>'+p2.BIS+'</td><td>'+p2.MS+'</td><td>'+p2.OS+'</td><td style="color:#888">'+p2.Andet+'</td></tr>';
+    });
+    html+='</tbody></table></div>';
+  }
+  return html;
+}
+function sort(col){if(currentSort.col===col)currentSort.desc=!currentSort.desc;else{currentSort.col=col;currentSort.desc=(col==='date')}render()}
+function switchView(v){currentView=v;document.querySelectorAll('[data-view]').forEach(t=>t.classList.toggle('active',t.dataset.view===v));render()}
+function switchPhase(p){currentPhase=p;raidFilter='all';document.querySelectorAll('[data-phase]').forEach(t=>t.classList.toggle('active',t.dataset.phase===p));render()}
+function toggleResp(val){respFilter=val;document.querySelectorAll('[data-resp]').forEach(p=>p.classList.toggle('active',p.dataset.resp===val));render()}
+function toggleRaid(val){raidFilter=val;render()}
+function toggleSection(togId,bodId){const t=document.getElementById(togId),b=document.getElementById(bodId);if(!t||!b)return;t.classList.toggle('open');b.classList.toggle('open');if(b.classList.contains('open'))renderRosterList()}
+function startEdit(i){editingIndex=i;render()}
+function saveEdit(i){const np=document.getElementById("editPlayer").value.trim();const nr=document.getElementById("editResp").value;lootData[i].player=np;lootData[i].response=nr;editingIndex=-1;save();render()}
+function deleteItem(i){if(confirm("Slet?")){lootData.splice(i,1);save();render()}}
+function clearDb(){if(confirm("Ryd alt loot? (Roster bevares)")){lootData=[];save();render();renderRosterList()}}
+function exportFile(keepMaster){
+  const doc=document.documentElement.cloneNode(true);
+  const scriptTag=doc.querySelector("#mainScript");
+  const dataToEmbed=JSON.stringify(lootData);
+  const classesToEmbed=JSON.stringify(playerClasses);
+  const rosterToEmbed=JSON.stringify(roster);
+  let scriptHtml=scriptTag.innerHTML
+    .replace(/let lootData=\[\];/,"let lootData="+dataToEmbed+";")
+    .replace(/let playerClasses=\{\};/,"let playerClasses="+classesToEmbed+";")
+    .replace(/let roster=\[\];/,"let roster="+rosterToEmbed+";");
+  if(!keepMaster){
+    ["#adminPanel","#masterInputPanel","#rosterSection","#rosterImportModal"].forEach(sel=>{const el=doc.querySelector(sel);if(el)el.remove()});
+    scriptHtml=scriptHtml.replace("","");
+  }
+  doc.querySelector("#mainScript").innerHTML=scriptHtml;
+  const blob=new Blob(['<!DOCTYPE html>\n'+doc.outerHTML],{type:"text/html"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  const stamp=new Date().toISOString().slice(0,10);
+  a.download=keepMaster?'vesuvius_loot_MASTER_'+stamp+'.html':'vesuvius_loot_'+stamp+'.html';
+  a.click();
+}
+checkCache();
+window.onload=()=>{sortRoster();render();renderRosterList()};
+</script>
+
+
+</body></html>
