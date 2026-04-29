@@ -520,7 +520,8 @@ function render(){
   const isMaster=!!document.getElementById("masterInputPanel");
   const phaseRows=getPhaseFiltered();
   const players=new Set(phaseRows.filter(l=>l.player!=='Disenchant').map(l=>l.player));
-  document.getElementById("counter").innerHTML='📦 Items: <b>'+phaseRows.length+'</b> · 👥 Raidere med loot: <b>'+players.size+'</b> · 🛡️ Roster: <b>'+roster.length+'</b>';
+  const counterEl=document.getElementById("counter");
+  if(counterEl)counterEl.innerHTML='📦 Items: <b>'+phaseRows.length+'</b> · 👥 Raidere med loot: <b>'+players.size+'</b> · 🛡️ Roster: <b>'+roster.length+'</b>';
   const raidPills=document.getElementById("raidPills");
   let opts=currentPhase==='all'?Object.keys(PHASES).flatMap(p=>Object.keys(PHASES[p].raids)):Object.keys(PHASES[currentPhase].raids);
   let pillHTML='<span class="pill '+(raidFilter==='all'?'active':'')+'" onclick="toggleRaid(\'all\')">Alle</span>';
