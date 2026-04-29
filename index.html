@@ -87,6 +87,13 @@ tr:hover td{background:rgba(242,169,0,.07)}
 .raider-chip .chip-name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .raider-chip .chip-count{font-size:11px;color:#999;font-weight:normal;padding:0 5px;background:rgba(0,0,0,0.3);border-radius:8px;flex-shrink:0}
 .raider-chip.selected .chip-count{color:var(--gold)}
+.raider-chip.no-loot{opacity:0.55}
+.raider-chip .chip-last{display:block;font-size:10px;color:#666;font-weight:normal;margin-top:1px}
+.matrix-toolbar{display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--bg-mid);border:1px solid var(--border);border-radius:6px;margin-bottom:10px;flex-wrap:wrap;font-size:12px}
+.matrix-toolbar select{height:26px;font-size:12px;padding:2px 6px}
+.matrix-toolbar .btn-small{margin-left:0}
+.compare-col .compare-raid-group{margin-top:8px}
+.compare-col .compare-raid-header{font-size:10px;color:var(--gold);text-transform:uppercase;letter-spacing:1px;padding:3px 0;border-bottom:1px dashed #444;margin-bottom:3px}
 .compare-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 14px;background:var(--bg-mid);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:6px;margin:14px 0 12px 0}
 .compare-label{font-size:13px;font-weight:bold;color:var(--gold)}
 .compare-chip{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;background:var(--surface);border:1px solid var(--gold);border-radius:12px;font-size:12px;font-weight:bold}
@@ -100,6 +107,40 @@ tr:hover td{background:rgba(242,169,0,.07)}
 .compare-col th{font-size:10px;padding:4px 6px}
 .compare-col td{padding:5px 6px;font-size:12px}
 .compare-col .compare-empty{color:#777;font-style:italic;padding:8px 0;font-size:12px}
+.compare-col-sticky{position:sticky;top:0;background:var(--panel);z-index:5;padding-bottom:8px;margin:-10px -14px 8px -14px;padding:10px 14px 8px 14px;border-bottom:1px solid var(--border);box-shadow:0 4px 6px -4px rgba(0,0,0,0.5)}
+.compare-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin:6px 0 0 0}
+.stat-cell{padding:6px 4px;text-align:center;border-radius:3px;border:1px solid var(--border)}
+.stat-cell .sn{font-size:22px;font-weight:bold;line-height:1.1}
+.stat-cell .sl{font-size:9px;text-transform:uppercase;letter-spacing:1px;opacity:.8;margin-top:2px}
+.stat-cell.bis{background:rgba(179,136,255,.15);border-color:rgba(179,136,255,.35)}
+.stat-cell.bis .sn{color:#B388FF}
+.stat-cell.ms{background:rgba(76,175,80,.15);border-color:rgba(76,175,80,.35)}
+.stat-cell.ms .sn{color:#7BCB7E}
+.stat-cell.os{background:rgba(255,152,0,.15);border-color:rgba(255,152,0,.35)}
+.stat-cell.os .sn{color:#FFB74D}
+.compare-last-bis{font-size:11px;color:#888;margin-top:6px}
+.compare-last-bis b{color:#B388FF;font-weight:bold}
+.compare-last-bis.empty{color:#666;font-style:italic}
+.item-row{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center;padding:5px 8px;border-radius:3px;margin-bottom:2px;transition:background .1s}
+.item-row:hover{background:rgba(255,255,255,.05)}
+.item-row.r-bis{background:rgba(179,136,255,.08)}
+.item-row.r-bis:hover{background:rgba(179,136,255,.18)}
+.item-row.r-ms{background:rgba(76,175,80,.08)}
+.item-row.r-ms:hover{background:rgba(76,175,80,.18)}
+.item-row.r-os{background:rgba(255,152,0,.08)}
+.item-row.r-os:hover{background:rgba(255,152,0,.18)}
+.item-row .item-main{min-width:0}
+.item-row .item-name{font-size:13px;font-weight:bold;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.item-row .item-name a{color:var(--link);text-decoration:none}
+.item-row .item-name a:hover{color:var(--gold)}
+.item-row .item-sub{font-size:10px;color:#888;margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.item-row .item-date{font-size:11px;color:#999;text-align:right;white-space:nowrap;cursor:help}
+.column-sort-bar{display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--bg-mid);border:1px solid var(--border);border-radius:6px;margin-bottom:10px;flex-wrap:wrap;font-size:12px}
+.column-sort-bar select{height:26px;font-size:12px;padding:2px 6px}
+.col-sort-toggle{display:inline-flex;gap:0;border:1px solid #444;border-radius:3px;overflow:hidden;font-size:10px;margin-top:6px}
+.col-sort-toggle button{background:#1e1e28;color:#888;border:none;padding:3px 8px;cursor:pointer;font-weight:bold}
+.col-sort-toggle button:hover{background:#2a2a35;color:#fff}
+.col-sort-toggle button.active{background:var(--gold);color:#000}
 .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:16px}
 .stat-card{background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:6px;padding:14px;text-align:center}
 .stat-num{font-size:28px;font-weight:bold;color:var(--gold)}
@@ -132,7 +173,7 @@ tr:hover td{background:rgba(242,169,0,.07)}
 <h1>🛡️ Vesuvius Loot Master</h1>
 <div class="panel">
 <div class="header-flex">
-<div><h2>Loot Council Overblik</h2><div id="counter" class="counter-bar" style="margin-top:6px">📦 Items: <b>0</b> · 👥 Raidere med loot: <b>0</b> · 🛡️ Roster: <b>28</b></div></div>
+<div><h2>Loot Council Overblik</h2><div id="counter" class="counter-bar" style="margin-top:6px">📦 Items: <b>6</b> · 👥 Raidere med loot: <b>6</b> · 🛡️ Roster: <b>28</b></div></div>
 </div></div>
 
 
@@ -146,6 +187,7 @@ tr:hover td{background:rgba(242,169,0,.07)}
 </div>
 <div class="tabs tabs-secondary" id="viewTabs">
 <button class="tab-btn active" data-view="raiders" onclick="switchView('raiders')">👥 Raidere</button>
+<button class="tab-btn" data-view="alle" onclick="switchView('alle')">📋 Alle raidere</button>
 <button class="tab-btn" data-view="all" onclick="switchView('all')">📜 Al Loot</button>
 <button class="tab-btn" data-view="stats" onclick="switchView('stats')">📊 Statistik</button>
 </div>
@@ -161,7 +203,7 @@ tr:hover td{background:rgba(242,169,0,.07)}
 <span class="filter-label">Raid</span>
 <span id="raidPills"><span class="pill active" onclick="toggleRaid('all')">Alle</span><span class="pill " onclick="toggleRaid('Karazhan')">Karazhan</span><span class="pill " onclick="toggleRaid('Gruul')">Gruul</span><span class="pill " onclick="toggleRaid('Magtheridon')">Magtheridon</span><span class="pill " onclick="toggleRaid('SSC')">SSC</span><span class="pill " onclick="toggleRaid('TK')">TK</span><span class="pill " onclick="toggleRaid('Hyjal')">Hyjal</span><span class="pill " onclick="toggleRaid('BT')">BT</span><span class="pill " onclick="toggleRaid('ZA')">ZA</span><span class="pill " onclick="toggleRaid('Sunwell')">Sunwell</span></span>
 </div>
-<div id="content"><div class="panel" style="padding-top:12px;padding-bottom:12px;margin-bottom:14px"><div class="header-flex" style="margin-bottom:10px"><h2>👥 Raidere efter klasse</h2><span style="font-size:12px;color:#888">Klik for at vælge — vælg flere for sammenligning nedenunder</span></div><div class="matrix"><div class="matrix-col"><div class="class-label d-color">druid <span class="class-count">(2)</span></div><div class="raiders-vert"><div class="raider-chip " onclick="toggleRaiderSelect('Munkefar')"><span class="chip-name d-color">Munkefar</span><span class="chip-count">0</span></div><div class="raider-chip " onclick="toggleRaiderSelect('Sardin')"><span class="chip-name d-color">Sardin</span><span class="chip-count">0</span></div></div></div><div class="matrix-col"><div class="class-label h-color">hunter <span class="class-count">(2)</span></div><div class="raiders-vert"><div class="raider-chip " onclick="toggleRaiderSelect('Kidneyfail')"><span class="chip-name h-color">Kidneyfail</span><span class="chip-count">0</span></div><div class="raider-chip " onclick="toggleRaiderSelect('Nazxz')"><span class="chip-name h-color">Nazxz</span><span class="chip-count">0</span></div></div></div><div class="matrix-col"><div class="class-label m-color">mage <span class="class-count">(3)</span></div><div class="raiders-vert"><div class="raider-chip " onclick="toggleRaiderSelect('Bábábábábá')"><span class="chip-name m-color">Bábábábábá</span><span class="chip-count">0</span></div><div class="raider-chip " onclick="toggleRaiderSelect('Teddylegs')"><span class="chip-name m-color">Teddylegs</span><span class="chip-count">0</span></div><div class="raider-chip " onclick="toggleRaiderSelect('Zakis')"><span class="chip-name m-color">Zakis</span><span class="chip-count">0</span></div></div></div><div class="matrix-col"><div class="class-label p-color">paladin <span class="class-count">(4)</span></div><div class="raiders-vert"><div class="raider-chip " onclick="toggleRaiderSelect('Kristensen')"><span class="chip-name p-color">Kristensen</span><span class="chip-count">0</span></div><div class="raider-chip " onclick="toggleRaiderSelect('Lyssja')"><span class="chip-name p-color">Lyssja</span><span class="chip-count">0</span></div><div class="raider-chip " onclick="toggleRaiderSelect('Nobreaks')"><span class="chip-name p-color">Nobreaks</span><span class="chip-count">0</span></div><div class="raider-chip " onclick="toggleRaiderSelect('Yakze')"><span class="chip-name p-color">Yakze</span><span class="chip-count">0</span></div></div></div><div class="matrix-col"><div class="class-label pr-color">priest <span class="class-count">(2)</span></div><div class="raiders-vert"><div class="raider-chip " onclick="toggleRaiderSelect('Áhn')"><span class="chip-name pr-color">Áhn</span><span class="chip-count">0</span></div><div class="raider-chip " onclick="toggleRaiderSelect('Talessah')"><span class="chip-name pr-color">Talessah</span><span class="chip-count">0</span></div></div></div><div class="matrix-col"><div class="class-label r-color">rogue <span class="class-count">(2)</span></div><div class="raiders-vert"><div class="raider-chip " onclick="toggleRaiderSelect('Fifilongwind')"><span class="chip-name r-color">Fifilongwind</span><span class="chip-count">0</span></div><div class="raider-chip " onclick="toggleRaiderSelect('hanzidk')"><span class="chip-name r-color">hanzidk</span><span class="chip-count">0</span></div></div></div><div class="matrix-col"><div class="class-label s-color">shaman <span class="class-count">(6)</span></div><div class="raiders-vert"><div class="raider-chip " onclick="toggleRaiderSelect('Bazookabetty')"><span class="chip-name s-color">Bazookabetty</span><span class="chip-count">0</span></div><div class="raider-chip " onclick="toggleRaiderSelect('Bootyliciouz')"><span class="chip-name s-color">Bootyliciouz</span><span class="chip-count">0</span></div><div class="raider-chip " onclick="toggleRaiderSelect('Hodoo')"><span class="chip-name s-color">Hodoo</span><span class="chip-count">0</span></div><div class="raider-chip " onclick="toggleRaiderSelect('Pixelsvin')"><span class="chip-name s-color">Pixelsvin</span><span class="chip-count">0</span></div><div class="raider-chip " onclick="toggleRaiderSelect('Skvat')"><span class="chip-name s-color">Skvat</span><span class="chip-count">0</span></div><div class="raider-chip " onclick="toggleRaiderSelect('Thurakan')"><span class="chip-name s-color">Thurakan</span><span class="chip-count">0</span></div></div></div><div class="matrix-col"><div class="class-label wl-color">warlock <span class="class-count">(3)</span></div><div class="raiders-vert"><div class="raider-chip " onclick="toggleRaiderSelect('Darksnackz')"><span class="chip-name wl-color">Darksnackz</span><span class="chip-count">0</span></div><div class="raider-chip " onclick="toggleRaiderSelect('Schnohr')"><span class="chip-name wl-color">Schnohr</span><span class="chip-count">0</span></div><div class="raider-chip " onclick="toggleRaiderSelect('Spytmigiøret')"><span class="chip-name wl-color">Spytmigiøret</span><span class="chip-count">0</span></div></div></div><div class="matrix-col"><div class="class-label w-color">warrior <span class="class-count">(4)</span></div><div class="raiders-vert"><div class="raider-chip " onclick="toggleRaiderSelect('Democ')"><span class="chip-name w-color">Democ</span><span class="chip-count">0</span></div><div class="raider-chip " onclick="toggleRaiderSelect('Kôld')"><span class="chip-name w-color">Kôld</span><span class="chip-count">0</span></div><div class="raider-chip " onclick="toggleRaiderSelect('Krigzb')"><span class="chip-name w-color">Krigzb</span><span class="chip-count">0</span></div><div class="raider-chip " onclick="toggleRaiderSelect('Philip')"><span class="chip-name w-color">Philip</span><span class="chip-count">0</span></div></div></div></div></div><div class="empty" style="padding:20px;font-size:13px">💡 Vælg en eller flere raidere ovenfor for at sammenligne deres loot side-om-side.</div></div>
+<div id="content"><div class="panel" style="padding-top:12px;padding-bottom:12px;margin-bottom:14px"><div class="header-flex" style="margin-bottom:10px"><h2>👥 Raidere efter klasse</h2><span style="font-size:12px;color:#888">Klik for at vælge — vælg flere for sammenligning nedenunder</span></div><div class="matrix-toolbar"><span style="color:#888">Sortér:</span><select onchange="setRaiderSort(this.value)"><option value="alpha" selected="">Alfabetisk</option><option value="count">Mest loot først</option><option value="recent">Senest loot først</option></select><button class="btn-small btn-add" onclick="selectAllWithLoot()">✓ Vælg alle med loot (6)</button><button class="btn-small" onclick="selectAllRaiders()">+ Vælg alle</button><span style="margin-left:auto;color:#666;font-size:11px">Klik en chip for at vælge · Vælg flere for sammenligning</span></div><div class="matrix"><div class="matrix-col"><div class="class-label d-color">druid <span class="class-count">(2)</span></div><div class="raiders-vert"><div class="raider-chip  no-loot" onclick="toggleRaiderSelect('Munkefar')"><div style="flex:1;min-width:0"><span class="chip-name d-color">Munkefar</span></div><span class="chip-count">0</span></div><div class="raider-chip " onclick="toggleRaiderSelect('Sardin')"><div style="flex:1;min-width:0"><span class="chip-name d-color">Sardin</span><span class="chip-last">i dag</span></div><span class="chip-count">1</span></div></div></div><div class="matrix-col"><div class="class-label h-color">hunter <span class="class-count">(2)</span></div><div class="raiders-vert"><div class="raider-chip  no-loot" onclick="toggleRaiderSelect('Kidneyfail')"><div style="flex:1;min-width:0"><span class="chip-name h-color">Kidneyfail</span></div><span class="chip-count">0</span></div><div class="raider-chip  no-loot" onclick="toggleRaiderSelect('Nazxz')"><div style="flex:1;min-width:0"><span class="chip-name h-color">Nazxz</span></div><span class="chip-count">0</span></div></div></div><div class="matrix-col"><div class="class-label m-color">mage <span class="class-count">(3)</span></div><div class="raiders-vert"><div class="raider-chip  no-loot" onclick="toggleRaiderSelect('Bábábábábá')"><div style="flex:1;min-width:0"><span class="chip-name m-color">Bábábábábá</span></div><span class="chip-count">0</span></div><div class="raider-chip " onclick="toggleRaiderSelect('Teddylegs')"><div style="flex:1;min-width:0"><span class="chip-name m-color">Teddylegs</span><span class="chip-last">i dag</span></div><span class="chip-count">1</span></div><div class="raider-chip  no-loot" onclick="toggleRaiderSelect('Zakis')"><div style="flex:1;min-width:0"><span class="chip-name m-color">Zakis</span></div><span class="chip-count">0</span></div></div></div><div class="matrix-col"><div class="class-label p-color">paladin <span class="class-count">(4)</span></div><div class="raiders-vert"><div class="raider-chip  no-loot" onclick="toggleRaiderSelect('Kristensen')"><div style="flex:1;min-width:0"><span class="chip-name p-color">Kristensen</span></div><span class="chip-count">0</span></div><div class="raider-chip  no-loot" onclick="toggleRaiderSelect('Lyssja')"><div style="flex:1;min-width:0"><span class="chip-name p-color">Lyssja</span></div><span class="chip-count">0</span></div><div class="raider-chip  no-loot" onclick="toggleRaiderSelect('Nobreaks')"><div style="flex:1;min-width:0"><span class="chip-name p-color">Nobreaks</span></div><span class="chip-count">0</span></div><div class="raider-chip  no-loot" onclick="toggleRaiderSelect('Yakze')"><div style="flex:1;min-width:0"><span class="chip-name p-color">Yakze</span></div><span class="chip-count">0</span></div></div></div><div class="matrix-col"><div class="class-label pr-color">priest <span class="class-count">(2)</span></div><div class="raiders-vert"><div class="raider-chip  no-loot" onclick="toggleRaiderSelect('Áhn')"><div style="flex:1;min-width:0"><span class="chip-name pr-color">Áhn</span></div><span class="chip-count">0</span></div><div class="raider-chip " onclick="toggleRaiderSelect('Talessah')"><div style="flex:1;min-width:0"><span class="chip-name pr-color">Talessah</span><span class="chip-last">i dag</span></div><span class="chip-count">1</span></div></div></div><div class="matrix-col"><div class="class-label r-color">rogue <span class="class-count">(2)</span></div><div class="raiders-vert"><div class="raider-chip  no-loot" onclick="toggleRaiderSelect('Fifilongwind')"><div style="flex:1;min-width:0"><span class="chip-name r-color">Fifilongwind</span></div><span class="chip-count">0</span></div><div class="raider-chip  no-loot" onclick="toggleRaiderSelect('hanzidk')"><div style="flex:1;min-width:0"><span class="chip-name r-color">hanzidk</span></div><span class="chip-count">0</span></div></div></div><div class="matrix-col"><div class="class-label s-color">shaman <span class="class-count">(6)</span></div><div class="raiders-vert"><div class="raider-chip " onclick="toggleRaiderSelect('Bazookabetty')"><div style="flex:1;min-width:0"><span class="chip-name s-color">Bazookabetty</span><span class="chip-last">i dag</span></div><span class="chip-count">1</span></div><div class="raider-chip  no-loot" onclick="toggleRaiderSelect('Bootyliciouz')"><div style="flex:1;min-width:0"><span class="chip-name s-color">Bootyliciouz</span></div><span class="chip-count">0</span></div><div class="raider-chip  no-loot" onclick="toggleRaiderSelect('Hodoo')"><div style="flex:1;min-width:0"><span class="chip-name s-color">Hodoo</span></div><span class="chip-count">0</span></div><div class="raider-chip  no-loot" onclick="toggleRaiderSelect('Pixelsvin')"><div style="flex:1;min-width:0"><span class="chip-name s-color">Pixelsvin</span></div><span class="chip-count">0</span></div><div class="raider-chip  no-loot" onclick="toggleRaiderSelect('Skvat')"><div style="flex:1;min-width:0"><span class="chip-name s-color">Skvat</span></div><span class="chip-count">0</span></div><div class="raider-chip  no-loot" onclick="toggleRaiderSelect('Thurakan')"><div style="flex:1;min-width:0"><span class="chip-name s-color">Thurakan</span></div><span class="chip-count">0</span></div></div></div><div class="matrix-col"><div class="class-label wl-color">warlock <span class="class-count">(3)</span></div><div class="raiders-vert"><div class="raider-chip  no-loot" onclick="toggleRaiderSelect('Darksnackz')"><div style="flex:1;min-width:0"><span class="chip-name wl-color">Darksnackz</span></div><span class="chip-count">0</span></div><div class="raider-chip  no-loot" onclick="toggleRaiderSelect('Schnohr')"><div style="flex:1;min-width:0"><span class="chip-name wl-color">Schnohr</span></div><span class="chip-count">0</span></div><div class="raider-chip " onclick="toggleRaiderSelect('Spytmigiøret')"><div style="flex:1;min-width:0"><span class="chip-name wl-color">Spytmigiøret</span><span class="chip-last">i dag</span></div><span class="chip-count">1</span></div></div></div><div class="matrix-col"><div class="class-label w-color">warrior <span class="class-count">(4)</span></div><div class="raiders-vert"><div class="raider-chip  no-loot" onclick="toggleRaiderSelect('Democ')"><div style="flex:1;min-width:0"><span class="chip-name w-color">Democ</span></div><span class="chip-count">0</span></div><div class="raider-chip " onclick="toggleRaiderSelect('Kôld')"><div style="flex:1;min-width:0"><span class="chip-name w-color">Kôld</span><span class="chip-last">i dag</span></div><span class="chip-count">1</span></div><div class="raider-chip  no-loot" onclick="toggleRaiderSelect('Krigzb')"><div style="flex:1;min-width:0"><span class="chip-name w-color">Krigzb</span></div><span class="chip-count">0</span></div><div class="raider-chip  no-loot" onclick="toggleRaiderSelect('Philip')"><div style="flex:1;min-width:0"><span class="chip-name w-color">Philip</span></div><span class="chip-count">0</span></div></div></div></div></div><div class="empty" style="padding:20px;font-size:13px">💡 Vælg en eller flere raidere ovenfor for at sammenligne deres loot side-om-side.</div></div>
 </div>
 
 <script id="mainScript">
@@ -181,8 +223,8 @@ const PHASES={
 const INSTANCE_TAGS=[[/karazhan|kara/,'P1','Karazhan'],[/gruul|hkm/,'P1','Gruul'],[/magther/,'P1','Magtheridon'],[/serpentshrine|coilfang|ssc/,'P2','SSC'],[/tempest keep|the eye|tk\b/,'P2','TK'],[/hyjal/,'P3','Hyjal'],[/black temple|bt\b/,'P3','BT'],[/zul'?aman|za\b/,'P4','ZA'],[/sunwell/,'P5','Sunwell']];
 const RAIDIFY_CLASS_MAP={'warrior':'w-color','paladin':'p-color','hunter':'h-color','rogue':'r-color','priest':'pr-color','shaman':'s-color','mage':'m-color','warlock':'wl-color','druid':'d-color'};
 
-let lootData=[];
-let playerClasses={"philip":"1","yakze":"2","sardin":"11","healers (4)":"druid","lyssja":"2","nobreaks":"2","áhn":"5","bootyliciouz":"7","melee dps (8)":"shaman","democ":"1","kôld":"1","krigzb":"1","munkefar":"11","fifilongwind":"4","hanzidk":"4","pixelsvin":"7","thurakan":"7","ranged dps (11)":"shaman","kidneyfail":"3","nazxz":"3","bábábábábá":"8","teddylegs":"8","zakis":"8","talessah":"5","darksnackz":"9","schnohr":"9","spytmigiøret":"warlock","bazookabetty":"7","hodoo":"7","skvat":"7","kristensen":"2","seabuss":"1","mizzux":"2","bottlez":"8","notsomymage":"8","gorehowll":"1","ðahlia":"2","preisel":"2","healingtide":"7","gockkobbler":"1","zycur":"7","lumpidroo":"11","søsterstine":"5","punkhazard":"9","sayudu":"11","sinnaorc":"1","drsick":"9","feralko":"11","greenhope":"7","lounetic":"1","jegskalbare":"4","docjones":"2","skanka":"5","sugarhealz":"11","titangesicht":"1","päìn":"5","vaskekum":"2","zakssacks":"7","bellanotte":"5","tündércafat":"7","tyrrmond":"5","tazrul":"11","exclusivé":"5","ilso":"7","trollion":"1","xoxoqt":"9","idb":"1","wyldro":"11","chetzen":"9","critsama":"4","økomælk":"11","beefstealth":"11","skeetsheet":"2","kedrae":"8","msw":"1","keirámetz":"8","maraayea":"2","sindragossa":"3","tibastono":"3","escóbär":"11","samuelshifts":"11","bradockk":"4","amek":"9","yggsja":"11"};
+let lootData=[{"ts":1949954400,"date":"2026/04/26","time":"20:48:00","player":"Spytmigiøret","class":"warlock","item":"Chestguard of the Fallen Hero","id":29755,"response":"BIS","instance":"Magtheridon's Lair-25 Player","boss":"Magtheridon","phase":"P1","raid":"Magtheridon","note":"","votes":4},{"ts":1949954400,"date":"2026/04/26","time":"20:27:00","player":"Bazookabetty","class":"shaman","item":"Pauldrons of the Fallen Champion","id":29763,"response":"BIS","instance":"Gruul's Lair-25 Player","boss":"Gruul the Dragonkiller","phase":"P1","raid":"Gruul","note":"BiS nu og næste phase + set bonus","votes":4},{"ts":1949954400,"date":"2026/04/26","time":"20:27:00","player":"Teddylegs","class":"mage","item":"Pauldrons of the Fallen Hero","id":29762,"response":"BIS","instance":"Gruul's Lair-25 Player","boss":"Gruul the Dragonkiller","phase":"P1","raid":"Gruul","note":"","votes":3},{"ts":1949954400,"date":"2026/04/26","time":"20:48:00","player":"Kôld","class":"warrior","item":"Girdle of the Endless Pit","id":28779,"response":"BIS","instance":"Magtheridon's Lair-25 Player","boss":"Magtheridon","phase":"P1","raid":"Magtheridon","note":"","votes":3},{"ts":1949954400,"date":"2026/04/26","time":"20:28:00","player":"Talessah","class":"priest","item":"Belt of Divine Inspiration","id":28799,"response":"BIS","instance":"Gruul's Lair-25 Player","boss":"Gruul the Dragonkiller","phase":"P1","raid":"Gruul","note":"","votes":4},{"ts":1949954400,"date":"2026/04/26","time":"20:48:00","player":"Sardin","class":"druid","item":"Chestguard of the Fallen Defender","id":29753,"response":"BIS","instance":"Magtheridon's Lair-25 Player","boss":"Magtheridon","phase":"P1","raid":"Magtheridon","note":"Gigantisk upgrade, får 4 set piece bonus i så fald <3","votes":4}];
+let playerClasses={"philip":"1","yakze":"2","sardin":"druid","healers (4)":"druid","lyssja":"2","nobreaks":"2","áhn":"5","bootyliciouz":"7","melee dps (8)":"shaman","democ":"1","kôld":"warrior","krigzb":"1","munkefar":"11","fifilongwind":"4","hanzidk":"4","pixelsvin":"7","thurakan":"7","ranged dps (11)":"shaman","kidneyfail":"3","nazxz":"3","bábábábábá":"8","teddylegs":"mage","zakis":"8","talessah":"priest","darksnackz":"9","schnohr":"9","spytmigiøret":"warlock","bazookabetty":"shaman","hodoo":"7","skvat":"7","kristensen":"2","seabuss":"1","mizzux":"2","bottlez":"8","notsomymage":"8","gorehowll":"1","ðahlia":"2","preisel":"2","healingtide":"7","gockkobbler":"1","zycur":"7","lumpidroo":"11","søsterstine":"5","punkhazard":"9","sayudu":"11","sinnaorc":"1","drsick":"9","feralko":"11","greenhope":"7","lounetic":"1","jegskalbare":"4","docjones":"2","skanka":"5","sugarhealz":"11","titangesicht":"1","päìn":"5","vaskekum":"2","zakssacks":"7","bellanotte":"5","tündércafat":"7","tyrrmond":"5","tazrul":"11","exclusivé":"5","ilso":"7","trollion":"1","xoxoqt":"9","idb":"1","wyldro":"11","chetzen":"9","critsama":"4","økomælk":"11","beefstealth":"11","skeetsheet":"2","kedrae":"8","msw":"1","keirámetz":"8","maraayea":"2","sindragossa":"3","tibastono":"3","escóbär":"11","samuelshifts":"11","bradockk":"4","amek":"9","yggsja":"11"};
 let roster=[{"name":"Munkefar","cls":"d-color"},{"name":"Sardin","cls":"d-color"},{"name":"Kidneyfail","cls":"h-color"},{"name":"Nazxz","cls":"h-color"},{"name":"Bábábábábá","cls":"m-color"},{"name":"Teddylegs","cls":"m-color"},{"name":"Zakis","cls":"m-color"},{"name":"Kristensen","cls":"p-color"},{"name":"Lyssja","cls":"p-color"},{"name":"Nobreaks","cls":"p-color"},{"name":"Yakze","cls":"p-color"},{"name":"Áhn","cls":"pr-color"},{"name":"Talessah","cls":"pr-color"},{"name":"Fifilongwind","cls":"r-color"},{"name":"hanzidk","cls":"r-color"},{"name":"Bazookabetty","cls":"s-color"},{"name":"Bootyliciouz","cls":"s-color"},{"name":"Hodoo","cls":"s-color"},{"name":"Pixelsvin","cls":"s-color"},{"name":"Skvat","cls":"s-color"},{"name":"Thurakan","cls":"s-color"},{"name":"Darksnackz","cls":"wl-color"},{"name":"Schnohr","cls":"wl-color"},{"name":"Spytmigiøret","cls":"wl-color"},{"name":"Democ","cls":"w-color"},{"name":"Kôld","cls":"w-color"},{"name":"Krigzb","cls":"w-color"},{"name":"Philip","cls":"w-color"}];
 let editingIndex=-1;
 let currentSort={col:'date',desc:true};
@@ -191,6 +233,33 @@ let currentPhase='all';
 let respFilter='all';
 let raidFilter='all';
 let selectedRaiders=new Set();
+let raiderSort='alpha';
+let compareSort='bis';
+let weeksFilter=0;
+let columnSorts={};
+function lastLootTs(items){if(!items||items.length===0)return 0;return Math.max(...items.map(i=>i.ts||0))}
+function lastBisTs(items){const b=items.filter(i=>i.response==='BIS');if(b.length===0)return 0;return Math.max(...b.map(i=>i.ts||0))}
+function applyWeeksFilter(items){if(!weeksFilter)return items;const cutoff=Math.floor(Date.now()/1000)-weeksFilter*7*86400;return items.filter(i=>(i.ts||0)>=cutoff)}
+function sortMembers(members){
+  const m=members.slice();
+  m.sort((a,b)=>{
+    if(compareSort==='bis'){
+      const ab=a.items.filter(i=>i.response==='BIS').length;
+      const bb=b.items.filter(i=>i.response==='BIS').length;
+      if(ab!==bb)return bb-ab;
+      return a.name.localeCompare(b.name);
+    }
+    if(compareSort==='total'){if(a.items.length!==b.items.length)return b.items.length-a.items.length;return a.name.localeCompare(b.name)}
+    if(compareSort==='last_bis'){const al=lastBisTs(a.items),bl=lastBisTs(b.items);if(al!==bl)return bl-al;return a.name.localeCompare(b.name)}
+    if(compareSort==='class'){const ca=CSS_TO_CLASS[a.cls]||'zzz',cb=CSS_TO_CLASS[b.cls]||'zzz';const ia=CLASS_ORDER.indexOf(ca),ib=CLASS_ORDER.indexOf(cb);if(ia!==ib)return (ia===-1?99:ia)-(ib===-1?99:ib);return a.name.localeCompare(b.name)}
+    return a.name.localeCompare(b.name);
+  });
+  return m;
+}
+function setCompareSort(s){compareSort=s;render()}
+function setWeeksFilter(n){weeksFilter=parseInt(n)||0;render()}
+function setColumnSort(name,mode){columnSorts[name]=mode;render()}
+function formatDaysAgo(ts){if(!ts)return '';const d=Math.floor((Date.now()/1000-ts)/86400);if(d<=0)return 'i dag';if(d===1)return 'i går';if(d<7)return d+' dage siden';if(d<30)return Math.floor(d/7)+' uger siden';if(d<365)return Math.floor(d/30)+' md siden';return Math.floor(d/365)+' år siden'}
 
 function checkCache(){
   try{
@@ -422,6 +491,7 @@ function render(){
   const content=document.getElementById("content");
   const filtered=getFiltered();
   if(currentView==='raiders')content.innerHTML=renderRaiders(filtered);
+  else if(currentView==='alle')content.innerHTML=renderAlleRaidere(filtered);
   else if(currentView==='all')content.innerHTML=renderAllTable(filtered,isMaster);
   else if(currentView==='stats')content.innerHTML=renderStats(filtered);
   if(window.$WowheadPower)try{$WowheadPower.refreshLinks()}catch(e){}
@@ -445,8 +515,17 @@ function renderRaiders(rows){
   CLASS_ORDER.forEach(c=>byClass[c]=[]);
   byClass['unknown']=[];
   [...memberMap.values()].forEach(m=>{const wow=CSS_TO_CLASS[m.cls]||'unknown';(byClass[wow]=byClass[wow]||[]).push(m)});
-  Object.keys(byClass).forEach(c=>byClass[c].sort((a,b)=>a.name.localeCompare(b.name)));
-  let html='<div class="panel" style="padding-top:12px;padding-bottom:12px;margin-bottom:14px"><div class="header-flex" style="margin-bottom:10px"><h2>👥 Raidere efter klasse</h2><span style="font-size:12px;color:#888">Klik for at vælge — vælg flere for sammenligning nedenunder</span></div><div class="matrix">';
+  // Apply sort within each class
+  Object.keys(byClass).forEach(c=>byClass[c].sort((a,b)=>{
+    if(raiderSort==='count')return b.items.length-a.items.length||a.name.localeCompare(b.name);
+    if(raiderSort==='recent')return lastLootTs(b.items)-lastLootTs(a.items)||a.name.localeCompare(b.name);
+    return a.name.localeCompare(b.name);
+  }));
+  let html='<div class="panel" style="padding-top:12px;padding-bottom:12px;margin-bottom:14px"><div class="header-flex" style="margin-bottom:10px"><h2>👥 Raidere efter klasse</h2><span style="font-size:12px;color:#888">Klik for at vælge — vælg flere for sammenligning nedenunder</span></div>';
+  // Toolbar: select all / clear / sort
+  const numWithLoot=[...memberMap.values()].filter(m=>m.items.length>0).length;
+  html+='<div class="matrix-toolbar"><span style="color:#888">Sortér:</span><select onchange="setRaiderSort(this.value)"><option value="alpha"'+(raiderSort==='alpha'?' selected':'')+'>Alfabetisk</option><option value="count"'+(raiderSort==='count'?' selected':'')+'>Mest loot først</option><option value="recent"'+(raiderSort==='recent'?' selected':'')+'>Senest loot først</option></select><button class="btn-small btn-add" onclick="selectAllWithLoot()">✓ Vælg alle med loot ('+numWithLoot+')</button><button class="btn-small" onclick="selectAllRaiders()">+ Vælg alle</button>'+(selectedRaiders.size>0?'<button class="btn-small btn-danger" onclick="clearSelected()">✕ Ryd valg ('+selectedRaiders.size+')</button>':'')+'<span style="margin-left:auto;color:#666;font-size:11px">Klik en chip for at vælge · Vælg flere for sammenligning</span></div>';
+  html+='<div class="matrix">';
   const order=[...CLASS_ORDER,'unknown'];
   let totalShown=0;
   order.forEach(cls=>{
@@ -459,7 +538,9 @@ function renderRaiders(rows){
     else members.forEach(m=>{
       const isSel=selectedRaiders.has(m.name);
       const safeName=m.name.replace(/'/g,"\\'");
-      html+='<div class="raider-chip '+(isSel?'selected':'')+'" onclick="toggleRaiderSelect(\''+safeName+'\')"><span class="chip-name '+m.cls+'">'+escHtml(m.name)+'</span><span class="chip-count">'+m.items.length+'</span></div>';
+      const noLoot=m.items.length===0?' no-loot':'';
+      const last=m.items.length>0?'<span class="chip-last">'+escHtml(formatDaysAgo(lastLootTs(m.items)))+'</span>':'';
+      html+='<div class="raider-chip '+(isSel?'selected':'')+noLoot+'" onclick="toggleRaiderSelect(\''+safeName+'\')"><div style="flex:1;min-width:0"><span class="chip-name '+m.cls+'">'+escHtml(m.name)+'</span>'+last+'</div><span class="chip-count">'+m.items.length+'</span></div>';
     });
     html+='</div></div>';
   });
@@ -474,37 +555,172 @@ function renderRaiders(rows){
       html+='<span class="compare-chip"><span class="'+cls+'">'+escHtml(n)+'</span><span class="x" onclick="toggleRaiderSelect(\''+safeN+'\')">✕</span></span>';
     });
     html+='<button class="btn-small btn-danger" style="margin-left:auto" onclick="clearSelected()">Ryd alle</button></div>';
+    html+=renderColumnSortBar();
+    const selMembers=[...selectedRaiders].map(n=>memberMap.get(n.toLowerCase())||{name:n,cls:'u-color',items:[]});
+    const sortedMembers=sortMembers(selMembers);
     html+='<div class="compare-grid">';
-    [...selectedRaiders].forEach(n=>{
-      const m=memberMap.get(n.toLowerCase())||{name:n,cls:'u-color',items:[]};
-      html+=renderCompareCol(m);
-    });
+    sortedMembers.forEach(m=>{html+=renderCompareCol(m)});
     html+='</div>';
   }else{
     html+='<div class="empty" style="padding:20px;font-size:13px">💡 Vælg en eller flere raidere ovenfor for at sammenligne deres loot side-om-side.</div>';
   }
   return html;
 }
+function renderItemRow(it){
+  const tCls=String(it.response).toLowerCase().replace(/\s/g,'');
+  const rowCls=tCls==='bis'?'r-bis':tCls==='ms'?'r-ms':tCls==='os'?'r-os':'';
+  const ago=formatDaysAgo(it.ts);
+  const fullDate=escHtml(it.date)+(it.time?' '+escHtml(String(it.time).split(':').slice(0,2).join(':')):'');
+  const sub=escHtml(it.boss||'-')+(it.raid?' · '+escHtml(it.raid):'');
+  return '<div class="item-row '+rowCls+'">'+
+    '<span class="type-badge type-'+tCls+'">'+it.response+'</span>'+
+    '<div class="item-main"><div class="item-name">'+whLink(it.id,it.item)+'</div>'+
+    '<div class="item-sub">'+sub+'</div></div>'+
+    '<span class="item-date" title="'+fullDate+'">'+escHtml(ago)+'</span>'+
+    '</div>';
+}
 function renderCompareCol(member){
-  const items=[...member.items].sort((a,b)=>{const pa=respPriority(a.response),pb=respPriority(b.response);if(pa!==pb)return pa-pb;return b.ts-a.ts});
+  let items=applyWeeksFilter([...member.items]);
   const wowCls=CSS_TO_CLASS[member.cls]||'unknown';
-  const counts={BIS:0,MS:0,OS:0,Andet:0};
-  items.forEach(it=>{if(counts[it.response]!==undefined)counts[it.response]++;else counts.Andet++});
-  let html='<div class="compare-col"><div class="compare-head"><span class="'+member.cls+'">'+escHtml(member.name)+'</span></div><div class="compare-meta">'+wowCls+' · '+items.length+' items · BIS '+counts.BIS+' / MS '+counts.MS+' / OS '+counts.OS+'</div>';
-  if(items.length===0)html+='<div class="compare-empty">Ingen loot endnu i den valgte phase/filter.</div>';
-  else{
-    html+='<table><thead><tr><th>Type</th><th>Item</th><th>Boss</th><th>Dato</th></tr></thead><tbody>';
-    items.forEach(it=>{
-      const tCls=String(it.response).toLowerCase().replace(/\s/g,'');
-      html+='<tr><td><span class="type-badge type-'+tCls+'">'+it.response+'</span></td><td>'+whLink(it.id,it.item)+'</td><td style="color:#aaa">'+escHtml(it.boss||'-')+'</td><td style="color:#888;font-size:11px">'+escHtml(it.date)+'</td></tr>';
+  const counts={BIS:0,MS:0,OS:0,Other:0};
+  let lbts=0;
+  items.forEach(it=>{
+    if(it.response==='BIS'){counts.BIS++;if(it.ts>lbts)lbts=it.ts}
+    else if(it.response==='MS')counts.MS++;
+    else if(it.response==='OS')counts.OS++;
+    else counts.Other++;
+  });
+  const safeName=member.name.replace(/'/g,"\\'");
+  const colSort=columnSorts[member.name]||'priority';
+  let html='<div class="compare-col">';
+  // Sticky header
+  html+='<div class="compare-col-sticky">';
+  html+='<div class="compare-head"><span class="'+member.cls+'">'+escHtml(member.name)+'</span></div>';
+  html+='<div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:1px">'+wowCls+' · '+items.length+' item'+(items.length!==1?'s':'')+'</div>';
+  html+='<div class="compare-stats">';
+  html+='<div class="stat-cell bis"><div class="sn">'+counts.BIS+'</div><div class="sl">BIS</div></div>';
+  html+='<div class="stat-cell ms"><div class="sn">'+counts.MS+'</div><div class="sl">MS</div></div>';
+  html+='<div class="stat-cell os"><div class="sn">'+counts.OS+'</div><div class="sl">OS</div></div>';
+  html+='</div>';
+  if(lbts)html+='<div class="compare-last-bis">Senest <b>BIS</b>: '+escHtml(formatDaysAgo(lbts))+'</div>';
+  else html+='<div class="compare-last-bis empty">Ingen BIS i denne phase</div>';
+  if(items.length>0){
+    html+='<div class="col-sort-toggle">'+
+      '<button class="'+(colSort==='priority'?'active':'')+'" onclick="setColumnSort(\''+safeName+'\',\'priority\')">Pr. type</button>'+
+      '<button class="'+(colSort==='date'?'active':'')+'" onclick="setColumnSort(\''+safeName+'\',\'date\')">Pr. dato</button>'+
+      '<button class="'+(colSort==='boss'?'active':'')+'" onclick="setColumnSort(\''+safeName+'\',\'boss\')">Pr. boss</button>'+
+      '</div>';
+  }
+  html+='</div>';
+  if(items.length===0)html+='<div class="compare-empty">Ingen loot i den valgte phase/filter.</div>';
+  else if(colSort==='date'){
+    const sorted=items.slice().sort((a,b)=>b.ts-a.ts);
+    sorted.forEach(it=>{html+=renderItemRow(it)});
+  } else if(colSort==='boss'){
+    const byBoss={};
+    items.forEach(it=>{const b=it.boss||'Ukendt';(byBoss[b]=byBoss[b]||[]).push(it)});
+    Object.keys(byBoss).sort().forEach(bk=>{
+      const bi=[...byBoss[bk]].sort((a,b)=>{
+        const pa=respPriority(a.response),pb=respPriority(b.response);
+        if(pa!==pb)return pa-pb;
+        return b.ts-a.ts;
+      });
+      html+='<div class="compare-raid-group"><div class="compare-raid-header">'+escHtml(bk)+' · '+bi.length+'</div>';
+      bi.forEach(it=>{html+=renderItemRow(it)});
+      html+='</div>';
     });
-    html+='</tbody></table>';
+  } else {
+    // Default: group by raid, sort within by priority
+    const RAID_ORDER=['Karazhan','Gruul','Magtheridon','SSC','TK','Hyjal','BT','ZA','Sunwell','Ukendt'];
+    const byRaid={};
+    items.forEach(it=>{const r=it.raid||'Ukendt';(byRaid[r]=byRaid[r]||[]).push(it)});
+    const raidKeys=Object.keys(byRaid).sort((a,b)=>{
+      const ia=RAID_ORDER.indexOf(a),ib=RAID_ORDER.indexOf(b);
+      return (ia===-1?99:ia)-(ib===-1?99:ib);
+    });
+    raidKeys.forEach(rk=>{
+      const ri=[...byRaid[rk]].sort((a,b)=>{
+        const pa=respPriority(a.response),pb=respPriority(b.response);
+        if(pa!==pb)return pa-pb;
+        return b.ts-a.ts;
+      });
+      html+='<div class="compare-raid-group"><div class="compare-raid-header">'+escHtml(rk)+' · '+ri.length+'</div>';
+      ri.forEach(it=>{html+=renderItemRow(it)});
+      html+='</div>';
+    });
   }
   html+='</div>';
   return html;
 }
+function buildMemberMap(rows){
+  const byPlayer={};
+  rows.forEach(r=>{if(r.player!=='Disenchant')(byPlayer[r.player]=byPlayer[r.player]||[]).push(r)});
+  const memberMap=new Map();
+  roster.forEach(p=>memberMap.set(p.name.toLowerCase(),{name:p.name,cls:p.cls,items:byPlayer[p.name]||[]}));
+  Object.keys(byPlayer).forEach(name=>{
+    if(memberMap.has(name.toLowerCase())){memberMap.get(name.toLowerCase()).items=byPlayer[name];return}
+    const wowCls=(byPlayer[name][0]&&byPlayer[name][0].class)||playerClasses[name.toLowerCase()]||'unknown';
+    const cssCls=CLASS_TO_CSS[wowCls]||'u-color';
+    memberMap.set(name.toLowerCase(),{name,cls:cssCls,items:byPlayer[name]});
+  });
+  return memberMap;
+}
+function renderAlleRaidere(rows){
+  const memberMap=buildMemberMap(rows);
+  // Sort: by class group, then alphabetical within class. Skip those with 0 items by default.
+  const all=[...memberMap.values()];
+  const withLoot=all.filter(m=>m.items.length>0);
+  const sorted=withLoot.sort((a,b)=>{
+    const ca=CSS_TO_CLASS[a.cls]||'zzz',cb=CSS_TO_CLASS[b.cls]||'zzz';
+    const ia=CLASS_ORDER.indexOf(ca),ib=CLASS_ORDER.indexOf(cb);
+    if(ia!==ib)return (ia===-1?99:ia)-(ib===-1?99:ib);
+    return a.name.localeCompare(b.name);
+  });
+  if(sorted.length===0)return '<div class="empty">Ingen raidere har loot i den valgte phase/filter endnu.</div>';
+  let html='<div class="panel" style="padding-top:10px;padding-bottom:10px;margin-bottom:12px"><div class="header-flex"><h2>📋 Alle raidere ('+sorted.length+' med loot)</h2><span style="font-size:12px;color:#888">Filtrér/skift phase ovenfor for at indsnævre visningen</span></div></div>';
+  html+=renderColumnSortBar();
+  const finalSorted=sortMembers(sorted);
+  html+='<div class="compare-grid">';
+  finalSorted.forEach(m=>html+=renderCompareCol(m));
+  html+='</div>';
+  return html;
+}
+function renderColumnSortBar(){
+  return '<div class="column-sort-bar">'+
+    '<span style="color:#888">Sortér kolonner:</span>'+
+    '<select onchange="setCompareSort(this.value)">'+
+      '<option value="bis"'+(compareSort==='bis'?' selected':'')+'>Flest BIS først</option>'+
+      '<option value="total"'+(compareSort==='total'?' selected':'')+'>Flest items først</option>'+
+      '<option value="last_bis"'+(compareSort==='last_bis'?' selected':'')+'>Senest BIS først</option>'+
+      '<option value="class"'+(compareSort==='class'?' selected':'')+'>Klasse-grupperet</option>'+
+      '<option value="name"'+(compareSort==='name'?' selected':'')+'>Alfabetisk</option>'+
+    '</select>'+
+    '<span style="color:#888;margin-left:8px">Tidsvindue:</span>'+
+    '<select onchange="setWeeksFilter(this.value)">'+
+      '<option value="0"'+(weeksFilter===0?' selected':'')+'>Hele perioden</option>'+
+      '<option value="1"'+(weeksFilter===1?' selected':'')+'>Sidste uge</option>'+
+      '<option value="2"'+(weeksFilter===2?' selected':'')+'>Sidste 2 uger</option>'+
+      '<option value="4"'+(weeksFilter===4?' selected':'')+'>Sidste 4 uger</option>'+
+      '<option value="8"'+(weeksFilter===8?' selected':'')+'>Sidste 8 uger</option>'+
+    '</select>'+
+    '<span style="margin-left:auto;color:#666;font-size:11px">Klik chips i hver kolonne for at sortére items pr. type/dato/boss</span>'+
+    '</div>';
+}
 function toggleRaiderSelect(name){if(selectedRaiders.has(name))selectedRaiders.delete(name);else selectedRaiders.add(name);render()}
 function clearSelected(){selectedRaiders.clear();render()}
+function setRaiderSort(s){raiderSort=s;render()}
+function selectAllWithLoot(){
+  const filtered=getFiltered();
+  const memberMap=buildMemberMap(filtered);
+  selectedRaiders=new Set([...memberMap.values()].filter(m=>m.items.length>0).map(m=>m.name));
+  render();
+}
+function selectAllRaiders(){
+  const filtered=getFiltered();
+  const memberMap=buildMemberMap(filtered);
+  selectedRaiders=new Set([...memberMap.values()].map(m=>m.name));
+  render();
+}
 function sortFn(a,b){
   const col=currentSort.col;
   if(col==='response'){const pa=respPriority(a.response),pb=respPriority(b.response);if(pa!==pb)return currentSort.desc?pb-pa:pa-pb;return b.ts-a.ts}
@@ -601,4 +817,4 @@ window.onload=()=>{sortRoster();render();renderRosterList()};
 </script>
 
 
-</body></html>
+<div class="wowhead-tooltip wowhead-tooltip-width-restriction wowhead-tooltip-width-320" data-status="ok" data-game="wow" data-tree="tbc" data-env="tbc" data-type="item" style="top: 1142px; left: 1154px; position: absolute; visibility: hidden; width: 320px; display: none;" data-visible="no"><div class="whtt-tooltip-icon" style="visibility: hidden;"></div><table class=""><tbody><tr><td><table style="width: 100%;"><tbody><tr><td><table style="display:inline-table; vertical-align:inherit"><tbody><tr><td><!--nstart--><b class="q4">Chestguard of the Fallen Hero</b><!--nend--></td><th><b class="q0 whtt-extra">Phase 1</b></th></tr></tbody></table><!--ndstart--><!--ndend--><span class="q whtt-extra whtt-ilvl"><br>Item Level <!--ilvl-->70</span><!--bo--><br>Binds when picked up<!--ue--><!--ebstats--><!--egstats--><!--eistats--><!--nameDescStats--><div class="wowhead-tooltip-item-classes">Classes: <a href="/tbc/class=3/hunter" class="c3">Hunter</a>, <a href="/tbc/class=8/mage" class="c8">Mage</a>, <a href="/tbc/class=9/warlock" class="c9">Warlock</a></div></td></tr></tbody></table><table style="width: 100%;"><tbody><tr><td>Requires Level <!--rlvl-->70<!--itemEffects:1--><br><!--pvpEquip--><!--pvpEquip--><div class="whtt-sellprice">Sell Price: <span class="moneygold">5</span></div></td></tr></tbody></table></td><th style="background-position: right top;"></th></tr><tr><th style="background-position: left bottom;"></th><th style="background-position: right bottom;"></th></tr></tbody></table><div class="wowhead-tooltip-powered" style="display: none;"></div></div><div class="wowhead-tooltip" data-status="ok" data-game="wow" data-tree="tbc" data-env="tbc" data-type="item" data-visible="no" style="top: -1000px; left: -1000px; position: absolute; display: none; visibility: hidden; width: 0px;"><table class=""><tbody><tr><td></td><th style="background-position: right top;"></th></tr><tr><th style="background-position: left bottom;"></th><th style="background-position: right bottom;"></th></tr></tbody></table></div></body></html>
