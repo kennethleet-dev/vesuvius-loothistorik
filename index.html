@@ -317,7 +317,7 @@ tr:nth-child(even) td{background:rgba(255,255,255,.04)}tr:hover td{background:rg
 .nv-crafter-del{cursor:pointer;font-size:12px;color:#666;margin-left:auto;padding:0 2px}.nv-crafter-del:hover{color:#ff6b6b}
 .nv-bank-edit{display:flex;gap:4px;align-items:center}
 .nv-del-col{width:28px}
-body.read-only .nv-bank-edit,body.read-only .nv-crafter-del,body.read-only .nv-pat-del,body.read-only .nv-pattern-add,body.read-only .nv-add-crafter-bar,body.read-only #nv-register-section,body.read-only .nv-del-btn{display:none!important}
+body.read-only .nv-bank-edit,body.read-only .nv-crafter-del,body.read-only .nv-pat-del,body.read-only .nv-pattern-add,body.read-only .nv-add-crafter-bar,body.read-only #nv-register-section,body.read-only .nv-del-btn,body.read-only .prio-edit-btn{display:none!important}
 .nv-total-count{font-size:20px;font-weight:bold;color:var(--g)}
 .nv-del-btn{background:none;border:none;color:#555;cursor:pointer;font-size:14px;padding:0 3px}
 .nv-del-btn:hover{color:#e44}
@@ -1299,13 +1299,13 @@ window.onload=()=>{if(isReadOnly){document.body.classList.add('read-only');curre
 
 <div class="modal-overlay" id="prioEditModal" onclick="if(event.target===this)closePrioEdit()">
   <div class="modal-box" style="min-width:560px;max-width:800px">
-    <h3 id="prioEditItemName" style="margin-bottom:6px;color:var(--g)">Rod of the Sun King</h3>
+    <h3 id="prioEditItemName" style="margin-bottom:6px;color:var(--g)">Verdant Sphere</h3>
     <p style="font-size:12px;color:#888;margin:0 0 12px">Adskil tiers med <code style="background:#000;padding:1px 5px;border-radius:3px;color:var(--g)">&gt;</code> &nbsp;·&nbsp; Adskil specs inden for samme tier med <code style="background:#000;padding:1px 5px;border-radius:3px;color:var(--g)">/</code></p>
     <label style="font-size:11px;color:#888;text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:4px">Prioritet</label>
     <textarea id="prioEditInput" rows="3" style="width:100%;background:#1a1a20;color:#fff;border:1px solid #4a4a5e;padding:8px;border-radius:3px;font-family:monospace;font-size:13px;margin-bottom:10px" placeholder="Prot Paladin &gt; Mage / Warlock &gt; Rogue"></textarea>
     <div id="prioEditDefaultRow" style="margin-bottom:12px;display:none">
       <div style="font-size:11px;color:#666;margin-bottom:4px">Standard (klik for at kopiere til input):</div>
-      <div id="prioEditDefaultText" style="font-size:12px;color:#555;font-family:monospace;cursor:pointer;padding:5px 8px;background:#12121a;border:1px solid #2a2a36;border-radius:3px" onclick="copyDefaultPrio()" title="Klik for at kopiere standard til input">Enh Shaman &gt; Fury Warrior</div>
+      <div id="prioEditDefaultText" style="font-size:12px;color:#555;font-family:monospace;cursor:pointer;padding:5px 8px;background:#12121a;border:1px solid #2a2a36;border-radius:3px" onclick="copyDefaultPrio()" title="Klik for at kopiere standard til input">Prot Paladin &gt; Mage / Boomkin / Bear Tank / Cat DPS / Resto Druid / Surv Hunter / Ele Shaman &gt; BM Hunter / Warlock &gt; Holy Priest / Resto Shaman / Holy Paladin &gt; Enh Shaman &gt; Rogue / Ret Paladin / Warrior</div>
     </div>
     <div class="modal-actions">
       <button class="btn-small btn-danger" id="prioEditResetBtn" onclick="resetPrioEdit()" style="display:none">↩ Nulstil til standard</button>
